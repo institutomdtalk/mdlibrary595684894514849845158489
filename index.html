@@ -94,6 +94,84 @@
   .nav::-webkit-scrollbar{width:6px}
   .nav::-webkit-scrollbar-thumb{background:rgba(196,164,90,.25);border-radius:3px}
 
+  /* ----- filtros por tema (substituídos pela home) ----- */
+  .filters{display:none}
+
+  /* ---------- PÁGINA INICIAL ---------- */
+  .home{
+    position:fixed;inset:0;z-index:60;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:0 9vw;overflow:hidden;background:var(--navy-deep);
+    transition:opacity .6s ease,visibility .6s ease;
+  }
+  .home.hidden{opacity:0;visibility:hidden;pointer-events:none}
+  .home__bg{
+    position:absolute;inset:0;background-size:cover;background-position:center;
+    opacity:0;transition:opacity 1s ease;will-change:opacity;
+  }
+  .home__bg.show{opacity:1;animation:homeZoom 16s ease-out forwards}
+  @keyframes homeZoom{from{transform:scale(1.05)}to{transform:scale(1.16)}}
+  .home__overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(90deg,rgba(3,7,14,.94) 0%,rgba(3,7,14,.74) 46%,rgba(5,13,26,.5) 100%);
+  }
+  .home__overlay::after{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(130% 90% at 0% 50%, transparent 40%, rgba(3,7,14,.65));
+  }
+  .home__inner{position:relative;z-index:2;max-width:780px}
+  .home__overline{
+    font-size:11px;letter-spacing:.34em;text-transform:uppercase;
+    color:var(--gold);font-weight:600;margin-bottom:18px;
+    opacity:0;animation:homeIn .7s ease forwards .1s;
+  }
+  .home__title{
+    font-family:'Cormorant Garamond',serif;font-weight:500;
+    font-size:clamp(46px,8vw,88px);line-height:.98;color:#fff;letter-spacing:.01em;
+    opacity:0;animation:homeIn .9s cubic-bezier(.16,1,.3,1) forwards .15s;
+  }
+  .home__title em{font-style:italic;color:var(--gold-light)}
+  .home__sub{
+    margin:22px 0 42px;color:var(--cream);font-size:15px;line-height:1.7;max-width:450px;
+    opacity:0;animation:homeIn .9s ease forwards .25s;
+  }
+  .home__themes{display:flex;flex-direction:column;gap:0}
+  .home__theme{
+    display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+    max-width:440px;padding:14px 4px;cursor:pointer;
+    border-bottom:1px solid rgba(196,164,90,.14);
+    opacity:0;transform:translateY(14px);
+    animation:homeIn .6s cubic-bezier(.16,1,.3,1) forwards;
+  }
+  .home__theme-name{
+    font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;color:var(--cream);
+    transition:color .3s,transform .35s cubic-bezier(.16,1,.3,1);
+  }
+  .home__theme-count{
+    font-size:12px;color:var(--muted);letter-spacing:.1em;transition:color .3s;
+  }
+  .home__theme:hover{border-color:rgba(196,164,90,.5)}
+  .home__theme:hover .home__theme-name{
+    color:#fff;transform:translateX(10px);text-shadow:0 0 22px rgba(196,164,90,.45);
+  }
+  .home__theme:hover .home__theme-count{color:var(--gold-light)}
+  @keyframes homeIn{to{opacity:1;transform:translateY(0)}}
+  .sidebar__title{cursor:pointer}
+  .chip{
+    font-family:'Raleway',sans-serif;font-size:10px;font-weight:600;
+    letter-spacing:.1em;text-transform:uppercase;cursor:pointer;
+    padding:6px 13px;border-radius:30px;
+    color:var(--muted);background:rgba(255,255,255,.03);
+    border:1px solid rgba(196,164,90,.22);
+    transition:.25s cubic-bezier(.16,1,.3,1);white-space:nowrap;
+  }
+  .chip:hover{color:var(--gold-light);border-color:rgba(196,164,90,.5)}
+  .chip.active{
+    color:var(--navy-deep);background:var(--gold);
+    border-color:var(--gold);
+    box-shadow:0 4px 16px rgba(196,164,90,.28);
+  }
+
   /* ----- section group ----- */
   .group__head{
     display:flex;align-items:center;justify-content:space-between;
@@ -372,6 +450,18 @@
 </button>
 <div class="scrim" id="scrim"></div>
 
+<div class="home" id="home">
+  <div class="home__bg" id="homeBgA"></div>
+  <div class="home__bg" id="homeBgB"></div>
+  <div class="home__overlay"></div>
+  <div class="home__inner">
+    <div class="home__overline">Instituto MD Talk</div>
+    <h1 class="home__title">O <em>Acervo</em></h1>
+    <p class="home__sub">Leituras selecionadas em inglês. Escolha um tema para começar — ou veja todos os textos.</p>
+    <div class="home__themes" id="homeThemes"></div>
+  </div>
+</div>
+
 <div class="app">
   <aside class="sidebar" id="sidebar">
     <button class="nav-collapse" id="navCollapse" aria-label="Recolher menu" title="Recolher menu">
@@ -379,9 +469,10 @@
     </button>
     <div class="sidebar__head">
       <div class="sidebar__overline">Instituto MD Talk</div>
-      <h1 class="sidebar__title">Acervo</h1>
+      <h1 class="sidebar__title" onclick="showHome()" title="Voltar ao início">Acervo</h1>
       <div class="sidebar__count" id="count">— textos</div>
     </div>
+    <div class="filters" id="filters"></div>
     <nav class="nav" id="nav"></nav>
   </aside>
 
@@ -430,6 +521,7 @@ let acervo = [
   /* ===================== REGULAR ENGLISH ===================== */
   {
     secao:'regular',
+    tema:"Health & Medicine",
     titulo:"Expiration Dates Are Meaningless",
     overline:"The Atlantic · Health",
     imagem:"https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1920&q=80",
@@ -441,6 +533,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"History & Society",
     titulo:"Old Enough: Experts Are Torn",
     overline:"Insider · Parenting",
     imagem:"https://images.unsplash.com/photo-1480796927426-f609979314bd?auto=format&fit=crop&w=1920&q=80",
@@ -452,6 +545,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"Psychology & Mind",
     titulo:"The 7 Types of Rest Everyone Needs",
     overline:"Stylist · Mental Health",
     imagem:"https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=1920&q=80",
@@ -463,6 +557,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"Psychology & Mind",
     titulo:"The Perks of Taking the High Road",
     overline:"The Atlantic · How to Build a Life",
     imagem:"https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1920&q=80",
@@ -474,6 +569,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"History & Society",
     titulo:"Love in the Time of A.I. Companions",
     overline:"The New Yorker · Brave New World Dept.",
     imagem:"https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=1920&q=80",
@@ -485,6 +581,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"Science & Nature",
     titulo:"Why Some People Thrive on Four Hours of Sleep",
     overline:"The New Yorker · Annals of Inquiry",
     imagem:"https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&w=1920&q=80",
@@ -496,6 +593,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"Ideas & Philosophy",
     titulo:"The Philosopher Who Believes in Living Things",
     overline:"The New Yorker · Annals of Inquiry",
     imagem:"https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=1920&q=80",
@@ -507,6 +605,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"Psychology & Mind",
     titulo:"Can Cognitive Behavioral Therapy Change Our Minds?",
     overline:"The New Yorker · Annals of Inquiry",
     imagem:"https://images.unsplash.com/photo-1474418397713-7ede21d49118?auto=format&fit=crop&w=1920&q=80",
@@ -518,6 +617,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"History & Society",
     titulo:"Searching for a Fortress Built by People Who Escaped Slavery",
     overline:"The New Yorker · Annals of Inquiry",
     imagem:"https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1920&q=80",
@@ -529,6 +629,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"Health & Medicine",
     titulo:"Why Dizziness Is Still a Mystery",
     overline:"The New Yorker · Annals of Inquiry",
     imagem:"https://images.unsplash.com/photo-1502139214982-d0ad755818d8?auto=format&fit=crop&w=1920&q=80",
@@ -540,6 +641,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"Health & Medicine",
     titulo:"Why Are We So Bad at Getting Better?",
     overline:"The New Yorker · Annals of Inquiry",
     imagem:"https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1920&q=80",
@@ -551,6 +653,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"Science & Nature",
     titulo:"How Much of the World Is It Possible to Model?",
     overline:"The New Yorker · Annals of Inquiry",
     imagem:"https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?auto=format&fit=crop&w=1920&q=80",
@@ -562,6 +665,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"History & Society",
     titulo:"An Economics Lesson from Tolstoy",
     overline:"The New Yorker · Annals of Inquiry",
     imagem:"https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1920&q=80",
@@ -573,6 +677,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"Psychology & Mind",
     titulo:"Why So Many People Are Going “No Contact” with Their Parents",
     overline:"The New Yorker · Annals of Inquiry",
     imagem:"https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?auto=format&fit=crop&w=1920&q=80",
@@ -584,6 +689,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"History & Society",
     titulo:"What Kind of Writer Is ChatGPT?",
     overline:"The New Yorker · Annals of Inquiry",
     imagem:"https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1920&q=80",
@@ -595,6 +701,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"Science & Nature",
     titulo:"Do Insects Feel Pain?",
     overline:"The New Yorker · Annals of Inquiry",
     imagem:"https://images.unsplash.com/photo-1568526381923-caf3fd520382?auto=format&fit=crop&w=1920&q=80",
@@ -606,6 +713,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"Science & Nature",
     titulo:"What’s the Deal with U.F.O.s?",
     overline:"The New Yorker · Annals of Inquiry",
     imagem:"https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?auto=format&fit=crop&w=1920&q=80",
@@ -617,6 +725,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"Psychology & Mind",
     titulo:"Is Cognitive Dissonance Actually a Thing?",
     overline:"The New Yorker · The Lede",
     imagem:"https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=1920&q=80",
@@ -628,6 +737,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"Science & Nature",
     titulo:"Animals Say Hello, but Do They Say Goodbye?",
     overline:"The New Yorker · Annals of Inquiry",
     imagem:"https://images.unsplash.com/photo-1463852247062-1bbca38f7805?auto=format&fit=crop&w=1920&q=80",
@@ -639,6 +749,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"Science & Nature",
     titulo:"Why Do We Like Music?",
     overline:"The New Yorker · Annals of Inquiry",
     imagem:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1920&q=80",
@@ -650,6 +761,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"Psychology & Mind",
     titulo:"When Do We Become Adults, Really?",
     overline:"The New Yorker · Annals of Inquiry",
     imagem:"https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=1920&q=80",
@@ -661,6 +773,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"Health & Medicine",
     titulo:"Can a “Living Drug” Cure Autoimmune Diseases?",
     overline:"The New Yorker · Annals of Inquiry",
     imagem:"https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=1920&q=80",
@@ -672,6 +785,7 @@ let acervo = [
   },
   {
     secao:'regular',
+    tema:"Health & Medicine",
     titulo:"Why Do Mind-Altering Drugs Make People Feel Better?",
     overline:"The New Yorker · Annals of Inquiry",
     imagem:"https://images.unsplash.com/photo-1545987796-200677ee1011?auto=format&fit=crop&w=1920&q=80",
@@ -685,6 +799,7 @@ let acervo = [
   /* ===================== MEDICAL ENGLISH ===================== */
   {
     secao:'medical',
+    tema:"Health & Medicine",
     titulo:"I Want to Kill You",
     overline:"Journal of Clinical Oncology · Art of Oncology",
     imagem:"https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1920&q=80",
@@ -696,6 +811,7 @@ let acervo = [
   },
   {
     secao:'medical',
+    tema:"Health & Medicine",
     titulo:"My White Coat Doesn't Fit",
     overline:"Journal of Clinical Oncology · Art of Oncology",
     imagem:"https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=1920&q=80",
@@ -707,6 +823,7 @@ let acervo = [
   },
   {
     secao:'medical',
+    tema:"Health & Medicine",
     titulo:"Ten Traits of Great Physicians",
     overline:"The American Journal of Medicine · Review",
     imagem:"https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1920&q=80",
@@ -718,6 +835,7 @@ let acervo = [
   },
   {
     secao:'medical',
+    tema:"Health & Medicine",
     titulo:"The Road Less Traveled",
     overline:"JCO Global Oncology · Art of Global Oncology",
     imagem:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1920&q=80",
@@ -729,6 +847,7 @@ let acervo = [
   },
   {
     secao:'medical',
+    tema:"Health & Medicine",
     titulo:"Afternoons in the Tower of Babel",
     overline:"Journal of Clinical Oncology · Art of Oncology",
     imagem:"https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=1920&q=80",
@@ -740,6 +859,7 @@ let acervo = [
   },
   {
     secao:'medical',
+    tema:"Health & Medicine",
     titulo:"What Your Doctor Writes About You",
     overline:"The Atlantic · Health",
     imagem:"https://images.unsplash.com/photo-1583912267550-d6c2ac3196c0?auto=format&fit=crop&w=1920&q=80",
@@ -753,6 +873,7 @@ let acervo = [
   /* ===================== BUSINESS ENGLISH ===================== */
   {
     secao:'business',
+    tema:"Work & Business",
     titulo:"The Rise of the 9 p.m. Work Hour",
     overline:"The Atlantic · Ideas",
     imagem:"https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1920&q=80",
@@ -764,6 +885,7 @@ let acervo = [
   },
   {
     secao:'business',
+    tema:"Work & Business",
     titulo:"Why Overthinkers Struggle With Remote Work",
     overline:"BBC Worklife · How We Work",
     imagem:"https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1920&q=80",
@@ -812,6 +934,7 @@ function buildNav(){
         const li=document.createElement('div');
         li.className='toc__item';
         li.dataset.index=i;
+        li.dataset.tema=t.tema||'';
         li.style.animationDelay=(k*0.045)+'s';
         li.innerHTML=`<span class="toc__name">${t.titulo}</span>`;
         li.addEventListener('click',()=>openText(i));
@@ -832,6 +955,97 @@ function buildNav(){
   });
 
   countEl.textContent = acervo.length + (acervo.length===1?' texto':' textos');
+  buildHome();
+  if(filtroAtual!=='Todos') aplicarFiltro(filtroAtual);
+}
+
+let filtroAtual='Todos';
+
+function buildFilters(){
+  const cont=document.getElementById('filters');
+  if(!cont) return;
+  const temas=[];
+  acervo.forEach(t=>{ const x=(t.tema||'').trim(); if(x && !temas.includes(x)) temas.push(x); });
+  cont.innerHTML='';
+  ['Todos',...temas].forEach(tema=>{
+    const chip=document.createElement('div');
+    chip.className='chip'+(tema===filtroAtual?' active':'');
+    chip.textContent = tema==='Todos' ? 'Todos' : tema;
+    chip.addEventListener('click',()=>aplicarFiltro(tema));
+    cont.appendChild(chip);
+  });
+}
+
+function aplicarFiltro(tema){
+  filtroAtual=tema;
+  document.querySelectorAll('.chip').forEach(c=>{
+    c.classList.toggle('active', c.textContent===tema || (tema==='Todos'&&c.textContent==='Todos'));
+  });
+  document.querySelectorAll('.group').forEach(group=>{
+    const items=group.querySelector('.group__items');
+    let visiveis=0;
+    items.querySelectorAll('.toc__item').forEach(it=>{
+      const ok = tema==='Todos' || it.dataset.tema===tema;
+      it.style.display = ok ? '' : 'none';
+      if(ok) visiveis++;
+    });
+    group.style.display = visiveis===0 ? 'none' : '';
+    if(!group.classList.contains('collapsed')){
+      items.style.maxHeight = items.scrollHeight+'px';
+    }
+  });
+}
+
+/* ---------- PÁGINA INICIAL ---------- */
+let homeBgToggle=false;
+function setHomeBg(url){
+  const a=document.getElementById('homeBgA'), b=document.getElementById('homeBgB');
+  if(!a||!b||!url) return;
+  const show = homeBgToggle ? a : b;
+  const hide = homeBgToggle ? b : a;
+  show.style.backgroundImage=`url('${url}')`;
+  show.classList.add('show'); hide.classList.remove('show');
+  homeBgToggle=!homeBgToggle;
+}
+
+function buildHome(){
+  const wrap=document.getElementById('homeThemes');
+  if(!wrap) return;
+  const temas=[];
+  acervo.forEach(t=>{ const x=(t.tema||'').trim(); if(x && !temas.includes(x)) temas.push(x); });
+
+  const opts=[{nome:'Todos os textos',tema:'Todos',img:(acervo[0]&&acervo[0].imagem)||'',n:acervo.length}];
+  temas.forEach(tm=>{
+    const rep=acervo.find(t=>(t.tema||'').trim()===tm);
+    const n=acervo.filter(t=>(t.tema||'').trim()===tm).length;
+    opts.push({nome:tm,tema:tm,img:rep?rep.imagem:'',n});
+  });
+
+  wrap.innerHTML='';
+  opts.forEach((o,idx)=>{
+    const row=document.createElement('div');
+    row.className='home__theme';
+    row.style.animationDelay=(0.3+idx*0.07)+'s';
+    row.innerHTML=`<span class="home__theme-name">${o.nome}</span><span class="home__theme-count">${o.n}</span>`;
+    row.addEventListener('mouseenter',()=>setHomeBg(o.img));
+    row.addEventListener('click',()=>enterReader(o.tema));
+    wrap.appendChild(row);
+  });
+  setHomeBg(opts[0].img);
+}
+
+function enterReader(tema){
+  aplicarFiltro(tema);
+  const idx = acervo.findIndex(t=> tema==='Todos' || (t.tema||'').trim()===tema);
+  if(idx>=0) openText(idx);
+  const home=document.getElementById('home');
+  if(home) home.classList.add('hidden');
+}
+
+function showHome(){
+  const home=document.getElementById('home');
+  if(home) home.classList.remove('hidden');
+  closeMenu();
 }
 
 let currentIndex=0;
@@ -1015,6 +1229,7 @@ async function carregarDaPlanilha(){
     if(Array.isArray(dados) && dados.length){
       acervo = dados.map(d=>({
         secao:(d.secao||'regular').toString().trim().toLowerCase(),
+        tema:(d.tema||'').toString().trim(),
         titulo:d.titulo||'',
         overline:d.overline||'',
         imagem:d.imagem||'',
@@ -1022,7 +1237,8 @@ async function carregarDaPlanilha(){
         fonte:d.fonte||''
       }));
       buildNav();
-      if(acervo.length){ openText(0); }
+      const home=document.getElementById('home');
+      if(acervo.length && home && !home.classList.contains('hidden')){ openText(0); }
     }
   }catch(e){ /* falhou: mantém o acervo de reserva */ }
 }
