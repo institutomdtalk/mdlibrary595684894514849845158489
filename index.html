@@ -35,14 +35,37 @@
 
   /* ---------- SIDEBAR ---------- */
   .sidebar{
+    position:relative;
     width:var(--sidebar-w);
     flex-shrink:0;
-    background:linear-gradient(180deg,var(--navy-deep) 0%,var(--navy) 100%);
-    border-right:1px solid rgba(196,164,90,.18);
-    box-shadow:14px 0 40px rgba(0,0,0,.45);
+    background:
+      radial-gradient(130% 70% at 0% 0%, rgba(196,164,90,.09), transparent 55%),
+      linear-gradient(180deg,#03070E 0%,#050C18 50%,#08152B 100%);
+    border-right:1px solid rgba(196,164,90,.22);
+    box-shadow:18px 0 50px rgba(0,0,0,.6), inset -1px 0 0 rgba(196,164,90,.12);
     display:flex;flex-direction:column;height:100%;z-index:20;
-    transition:transform .4s cubic-bezier(.16,1,.3,1);
+    overflow:hidden;
   }
+  .sidebar::before{
+    content:'';position:absolute;left:-30%;top:-12%;
+    width:160%;height:55%;pointer-events:none;z-index:0;
+    background:radial-gradient(closest-side, rgba(196,164,90,.18), transparent 70%);
+    filter:blur(14px);
+    animation:auroraDrift 16s ease-in-out infinite alternate;
+  }
+  .sidebar::after{
+    content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(rgba(196,164,90,.05) 1px, transparent 1px);
+    background-size:22px 22px;opacity:.6;
+    -webkit-mask-image:radial-gradient(140% 100% at 50% 0%, #000 25%, transparent 90%);
+            mask-image:radial-gradient(140% 100% at 50% 0%, #000 25%, transparent 90%);
+  }
+  @keyframes auroraDrift{
+    0%{transform:translate(0,0) scale(1);opacity:.5}
+    50%{transform:translate(12%,18%) scale(1.18);opacity:.95}
+    100%{transform:translate(-8%,30%) scale(1.06);opacity:.55}
+  }
+  .sidebar__head,.nav{position:relative;z-index:1}
 
   .sidebar__head{
     padding:38px 30px 24px;
@@ -54,9 +77,14 @@
   }
   .sidebar__title{
     font-family:'Cormorant Garamond',serif;
-    font-size:36px;font-weight:500;line-height:1;color:#fff;
-    letter-spacing:.02em;
+    font-size:38px;font-weight:500;line-height:1;letter-spacing:.02em;
+    background:linear-gradient(100deg,#fff 0%,var(--gold-pale) 38%,#fff 58%,var(--gold-light) 100%);
+    background-size:200% auto;
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;color:transparent;
+    animation:titleShine 7s linear infinite;
   }
+  @keyframes titleShine{to{background-position:200% center}}
   .sidebar__count{
     margin-top:12px;font-size:11px;letter-spacing:.12em;
     color:var(--muted);text-transform:uppercase;
@@ -88,19 +116,33 @@
   .toc__item{
     position:relative;padding:13px 30px 13px 34px;cursor:pointer;
     border-left:2px solid transparent;
-    transition:background .3s ease,border-color .3s ease;
+    opacity:0;transform:translateX(-12px);
+    animation:tocIn .55s cubic-bezier(.16,1,.3,1) forwards;
+    transition:background .35s ease,padding-left .35s ease;
   }
-  .toc__item:hover{background:rgba(196,164,90,.06)}
-  .toc__item.active{background:rgba(196,164,90,.10);border-left-color:var(--gold)}
+  .toc__item::before{
+    content:'';position:absolute;left:0;top:6px;bottom:6px;width:2px;
+    background:linear-gradient(180deg,var(--gold-light),var(--gold));
+    box-shadow:0 0 12px rgba(196,164,90,.7);
+    transform:scaleY(0);transform-origin:top;
+    transition:transform .4s cubic-bezier(.16,1,.3,1);
+  }
+  .toc__item:hover{background:rgba(196,164,90,.07);padding-left:40px}
+  .toc__item:hover::before,.toc__item.active::before{transform:scaleY(1)}
+  .toc__item.active{background:rgba(196,164,90,.12)}
   .toc__num{
     font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--gold);
     letter-spacing:.1em;display:inline-block;width:22px;
   }
   .toc__name{
     font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:500;
-    line-height:1.2;color:var(--cream);transition:color .3s ease;
+    line-height:1.25;color:var(--cream);
+    transition:color .35s ease,text-shadow .35s ease;
   }
-  .toc__item.active .toc__name,.toc__item:hover .toc__name{color:#fff}
+  .toc__item.active .toc__name,.toc__item:hover .toc__name{
+    color:#fff;text-shadow:0 0 18px rgba(196,164,90,.4);
+  }
+  @keyframes tocIn{to{opacity:1;transform:translateX(0)}}
   .group__empty{
     padding:6px 30px 10px 34px;font-size:12px;font-style:italic;
     color:var(--muted);
@@ -296,6 +338,30 @@
     body.nav-collapsed .sidebar{margin-left:calc(-1 * var(--sidebar-w))}
     body.nav-collapsed .nav-show{display:flex}
   }
+  /* ---------- BOTÃO BAIXAR TEXTO ---------- */
+  .article__actions{
+    margin-top:54px;padding-top:30px;
+    border-top:1px solid rgba(196,164,90,.16);
+    display:flex;
+  }
+  .dl-btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:13px 26px;border-radius:40px;cursor:pointer;
+    font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;
+    color:var(--gold-light);background:rgba(196,164,90,.05);
+    border:1px solid rgba(196,164,90,.45);
+    transition:.3s cubic-bezier(.16,1,.3,1);
+  }
+  .dl-btn svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.7;fill:none;
+    transition:transform .3s ease}
+  .dl-btn:hover{
+    color:var(--navy-deep);background:var(--gold);
+    border-color:var(--gold);
+    box-shadow:0 12px 34px rgba(196,164,90,.3);
+    transform:translateY(-2px);
+  }
+  .dl-btn:hover svg{transform:translateY(2px)}
 </style>
 </head>
 <body>
@@ -746,6 +812,7 @@ function buildNav(){
         const li=document.createElement('div');
         li.className='toc__item';
         li.dataset.index=i;
+        li.style.animationDelay=(k*0.045)+'s';
         li.innerHTML=`<span class="toc__name">${t.titulo}</span>`;
         li.addEventListener('click',()=>openText(i));
         items.appendChild(li);
@@ -767,9 +834,11 @@ function buildNav(){
   countEl.textContent = acervo.length + (acervo.length===1?' texto':' textos');
 }
 
+let currentIndex=0;
 function openText(i){
   const t=acervo[i];
   if(!t) return;
+  currentIndex=i;
 
   bgEl.classList.remove('show');
   setTimeout(()=>{
@@ -784,6 +853,12 @@ function openText(i){
     <div class="article__body">${t.conteudo}
       ${t.fonte?`<div class="article__source"><span>Fonte</span><p>${t.fonte}</p></div>`:''}
     </div>
+    <div class="article__actions">
+      <button class="dl-btn" onclick="downloadCurrent()">
+        <svg viewBox="0 0 24 24"><path d="M12 3v12"/><polyline points="7 11 12 16 17 11"/><path d="M5 21h14"/></svg>
+        Baixar este texto
+      </button>
+    </div>
   `;
   articleEl.querySelectorAll('[class^="article__"]').forEach(el=>{
     el.style.animation='none';el.offsetHeight;el.style.animation='';
@@ -794,6 +869,44 @@ function openText(i){
     it.classList.toggle('active', +it.dataset.index===i);
   });
   closeMenu();
+}
+
+function downloadCurrent(){
+  const t=acervo[currentIndex];
+  if(!t) return;
+  const doc=`<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${t.titulo}</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#F0EDE8;color:#0B1D3A;font-family:'Raleway',sans-serif;line-height:1.9;padding:7vh 6vw}
+.wrap{max-width:720px;margin:0 auto}
+.ov{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:#9a7d3e;font-weight:600;margin-bottom:18px}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,5vw,46px);font-weight:500;line-height:1.12;color:#0B1D3A}
+.rule{width:60px;height:2px;background:#C4A45A;margin:24px 0 34px}
+.body{font-size:17px;color:#26303f}
+.body p{margin:0 0 1.3em}
+.body h2{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;color:#9a7d3e;margin:1.6em 0 .6em}
+.src{margin-top:50px;padding-top:24px;border-top:1px solid rgba(11,29,58,.18);font-size:13px;color:#5c6675}
+.src span{display:block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#9a7d3e;font-weight:600;margin-bottom:6px}
+.brand{margin-top:46px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:#9a7d3e;text-align:center}
+@media print{body{background:#fff;padding:0}}
+</style></head><body><div class="wrap">
+${t.overline?`<p class="ov">${t.overline}</p>`:''}
+<h1>${t.titulo}</h1><div class="rule"></div>
+<div class="body">${t.conteudo}</div>
+${t.fonte?`<p class="src"><span>Fonte</span>${t.fonte}</p>`:''}
+<p class="brand">Instituto MD Talk</p>
+</div></body></html>`;
+  const slug=(t.titulo||'texto').normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-z0-9]+/gi,'-').replace(/^-+|-+$/g,'').toLowerCase().slice(0,60)||'texto';
+  const blob=new Blob([doc],{type:'text/html;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=slug+'.html';
+  document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000);
 }
 
 /* ---------- TRANSLATOR ---------- */
