@@ -324,7 +324,7 @@ const SECOES = [
 
 /* Cada texto: cole o conteúdo no lugar indicado por <div class="article__placeholder">.
    O campo "fonte" aparece automaticamente no fim do texto. */
-const acervo = [
+let acervo = [
 
   /* ===================== REGULAR ENGLISH ===================== */
   {
@@ -837,10 +837,44 @@ document.getElementById('menuBtn').addEventListener('click',openMenu);
 scrim.addEventListener('click',closeMenu);
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();closeTr();}});
 
+/* ---------- PLANILHA (Google Sheets) ---------- */
+/* Cole abaixo, entre as aspas, a URL do app da sua planilha (termina em /exec). */
+const SHEETS_URL = "https://script.google.com/macros/s/AKfycbwbuZ3dWkBTH6_0iqR40LX7l6NjOvq2CWCa4Qh6rxohzoGQ5Hn90WdtmA5GkIxfWeDT8w/exec";
+
+/* Converte texto simples (com quebras de linha) em parágrafos. */
+function textToHtml(t){
+  if(!t) return '';
+  if(/<p|<h2|<div/i.test(t)) return t;            /* já é HTML: usa como está */
+  return t.split(/\n+/).map(l=>l.trim()).filter(Boolean)
+    .map(l=> l.startsWith('## ') ? '<h2>'+l.slice(3)+'</h2>' : '<p>'+l+'</p>')
+    .join('');
+}
+
+async function carregarDaPlanilha(){
+  if(!SHEETS_URL) return;                          /* sem URL: mantém os textos embutidos */
+  try{
+    const r = await fetch(SHEETS_URL);
+    const dados = await r.json();
+    if(Array.isArray(dados) && dados.length){
+      acervo = dados.map(d=>({
+        secao:(d.secao||'regular').toString().trim().toLowerCase(),
+        titulo:d.titulo||'',
+        overline:d.overline||'',
+        imagem:d.imagem||'',
+        conteudo:textToHtml(d.conteudo||''),
+        fonte:d.fonte||''
+      }));
+      buildNav();
+      if(acervo.length){ openText(0); }
+    }
+  }catch(e){ /* falhou: mantém o acervo de reserva */ }
+}
+
 /* ---------- INIT ---------- */
 buildNav();
 if(acervo.length){ openText(0); }
 else{ articleEl.innerHTML='<div class="empty"><div class="empty__title">Acervo vazio</div></div>'; }
+carregarDaPlanilha();
 </script>
 </body>
 </html>
