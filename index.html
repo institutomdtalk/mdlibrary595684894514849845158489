@@ -998,6 +998,7 @@ function aplicarFiltro(tema){
 
 /* ---------- PÁGINA INICIAL ---------- */
 let homeBgToggle=false;
+let homeReady=false;
 function setHomeBg(url){
   const a=document.getElementById('homeBgA'), b=document.getElementById('homeBgB');
   if(!a||!b||!url) return;
@@ -1022,16 +1023,18 @@ function buildHome(){
   });
 
   wrap.innerHTML='';
+  homeReady=false;
   opts.forEach((o,idx)=>{
     const row=document.createElement('div');
     row.className='home__theme';
     row.style.animationDelay=(0.3+idx*0.07)+'s';
     row.innerHTML=`<span class="home__theme-name">${o.nome}</span><span class="home__theme-count">${o.n}</span>`;
     row.addEventListener('mouseenter',()=>setHomeBg(o.img));
-    row.addEventListener('click',()=>enterReader(o.tema));
+    row.addEventListener('click',()=>{ if(!homeReady) return; enterReader(o.tema); });
     wrap.appendChild(row);
   });
   setHomeBg(opts[0].img);
+  setTimeout(()=>{ homeReady=true; }, 700);
 }
 
 function enterReader(tema){
@@ -1237,16 +1240,13 @@ async function carregarDaPlanilha(){
         fonte:d.fonte||''
       }));
       buildNav();
-      const home=document.getElementById('home');
-      if(acervo.length && home && !home.classList.contains('hidden')){ openText(0); }
     }
   }catch(e){ /* falhou: mantém o acervo de reserva */ }
 }
 
 /* ---------- INIT ---------- */
 buildNav();
-if(acervo.length){ openText(0); }
-else{ articleEl.innerHTML='<div class="empty"><div class="empty__title">Acervo vazio</div></div>'; }
+if(!acervo.length){ articleEl.innerHTML='<div class="empty"><div class="empty__title">Acervo vazio</div></div>'; }
 carregarDaPlanilha();
 </script>
 </body>
