@@ -997,11 +997,13 @@ function aplicarFiltro(tema){
 }
 
 /* ---------- PÁGINA INICIAL ---------- */
+const HOME_BG_FALLBACK = "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1920&q=80";
 let homeBgToggle=false;
 let homeReady=false;
 function setHomeBg(url){
   const a=document.getElementById('homeBgA'), b=document.getElementById('homeBgB');
-  if(!a||!b||!url) return;
+  if(!a||!b) return;
+  url = url || HOME_BG_FALLBACK;
   const show = homeBgToggle ? a : b;
   const hide = homeBgToggle ? b : a;
   show.style.backgroundImage=`url('${url}')`;
