@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MD Talk — Reading Lesson · Brazil & the EU</title>
+<title>Acervo — MD Talk</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --navy:#0B1D3A;
@@ -18,601 +18,620 @@
     --gold-pale:#E8D9B0;
     --cream:rgba(255,255,255,.88);
     --muted:rgba(255,255,255,.42);
-    --line:rgba(196,164,90,.18);
-    --ok:#5BAE7B;
-    --no:#C77B6B;
+    --sidebar-w:340px;
   }
+
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  html,body{height:100%}
+
   body{
+    font-family:'Raleway',sans-serif;
     background:var(--navy-deep);
     color:var(--cream);
-    font-family:'Raleway',sans-serif;
-    font-weight:300;
-    line-height:1.75;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
-  ::selection{background:rgba(196,164,90,.28);color:#fff}
-
-  /* ---------- HERO ---------- */
-  .hero{
-    position:relative;
-    min-height:78vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:90px 24px 70px;
-    background:
-      radial-gradient(ellipse 80% 60% at 50% 0%, var(--navy-mid) 0%, var(--navy-deep) 70%);
     overflow:hidden;
   }
-  .hero::before{
-    content:"";
-    position:absolute;inset:0;
-    background-image:radial-gradient(rgba(255,255,255,.05) 1px, transparent 1px);
-    background-size:26px 26px;
-    -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 40%, #000 0%, transparent 75%);
-            mask-image:radial-gradient(ellipse 70% 60% at 50% 40%, #000 0%, transparent 75%);
-    opacity:.6;
-  }
-  .geo{position:absolute;border:1px solid var(--line);border-radius:50%;pointer-events:none}
-  .geo.r1{width:340px;height:340px;top:-120px;right:-90px;animation:geoFloat 14s ease-in-out infinite}
-  .geo.r2{width:200px;height:200px;bottom:-70px;left:-60px;animation:geoFloat 18s ease-in-out infinite reverse}
-  .geo.diamond{width:54px;height:54px;border-radius:6px;transform:rotate(45deg);top:18%;left:12%;border-color:rgba(196,164,90,.3);animation:geoPulse 7s ease-in-out infinite}
-  @keyframes geoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-22px)}}
-  @keyframes geoPulse{0%,100%{opacity:.25;transform:rotate(45deg) scale(1)}50%{opacity:.6;transform:rotate(45deg) scale(1.12)}}
 
-  .hero-inner{position:relative;z-index:2;max-width:760px}
-  .overline{
-    font-family:'Raleway',sans-serif;
-    font-weight:600;
-    font-size:10px;
-    letter-spacing:.42em;
-    text-transform:uppercase;
-    color:var(--gold);
-    margin-bottom:26px;
+  .app{display:flex;height:100vh;width:100vw}
+
+  /* ---------- SIDEBAR ---------- */
+  .sidebar{
+    width:var(--sidebar-w);
+    flex-shrink:0;
+    background:linear-gradient(180deg,var(--navy-deep) 0%,var(--navy) 100%);
+    border-right:1px solid rgba(196,164,90,.18);
+    box-shadow:14px 0 40px rgba(0,0,0,.45);
+    display:flex;flex-direction:column;height:100%;z-index:20;
+    transition:transform .4s cubic-bezier(.16,1,.3,1);
   }
-  .hero h1{
+
+  .sidebar__head{
+    padding:38px 30px 24px;
+    border-bottom:1px solid rgba(196,164,90,.14);
+  }
+  .sidebar__overline{
+    font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--gold);font-weight:600;margin-bottom:10px;
+  }
+  .sidebar__title{
     font-family:'Cormorant Garamond',serif;
-    font-weight:500;
-    font-size:clamp(2.4rem,6vw,4.1rem);
-    line-height:1.08;
-    color:#fff;
-    letter-spacing:.01em;
-  }
-  .hero h1 em{font-style:italic;color:var(--gold-light)}
-  .divider{width:64px;height:1px;background:var(--gold);margin:30px auto;opacity:.7}
-  .hero-desc{color:var(--muted);font-size:1.02rem;font-weight:300;max-width:560px;margin:0 auto}
-
-  .meta-card{
-    margin-top:42px;
-    display:inline-flex;
-    flex-wrap:wrap;
-    gap:0;
-    border:1px solid var(--line);
-    border-radius:16px;
-    overflow:hidden;
-    background:rgba(11,29,58,.5);
-    backdrop-filter:blur(4px);
-  }
-  .meta-card div{padding:16px 30px}
-  .meta-card div+div{border-left:1px solid var(--line)}
-  .meta-card .lab{font-size:9px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:6px}
-  .meta-card .val{font-family:'Cormorant Garamond',serif;font-size:1.32rem;color:#fff}
-
-  .scroll-ind{margin-top:54px;position:relative;z-index:2}
-  .scroll-ind span{display:block;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
-  .scroll-ind i{display:block;width:1px;height:40px;margin:0 auto;background:linear-gradient(var(--gold),transparent);animation:scrollPulse 2.4s ease-in-out infinite}
-  @keyframes scrollPulse{0%,100%{opacity:.3;transform:scaleY(.7)}50%{opacity:1;transform:scaleY(1)}}
-
-  /* ---------- SECTIONS ---------- */
-  .wrap{max-width:840px;margin:0 auto;padding:0 26px}
-  section{padding:74px 0}
-  .sec-head{margin-bottom:40px}
-  .sec-head .o{font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:14px}
-  .sec-head h2{
-    font-family:'Cormorant Garamond',serif;
-    font-weight:500;
-    font-size:clamp(1.9rem,4vw,2.7rem);
-    color:#fff;
-    position:relative;
-    display:inline-block;
-  }
-  .sec-head h2::after{content:"";position:absolute;left:0;bottom:-12px;width:46px;height:2px;background:var(--gold)}
-
-  /* hint badge */
-  .hint{
-    display:flex;align-items:center;gap:12px;
-    background:rgba(196,164,90,.07);
-    border:1px solid var(--line);
-    border-radius:14px;
-    padding:14px 20px;
-    font-size:.85rem;
-    color:var(--cream);
-    margin-bottom:38px;
-  }
-  .hint b{color:var(--gold);font-weight:600}
-
-  /* ---------- ARTICLE ---------- */
-  .article p{
-    font-size:1.12rem;
-    color:var(--cream);
-    margin-bottom:1.5em;
-    font-weight:300;
-  }
-  .article .subh{
-    font-family:'Cormorant Garamond',serif;
-    font-size:1.5rem;
-    color:var(--gold-light);
-    margin:2.4em 0 .7em;
-    font-weight:500;
-    letter-spacing:.01em;
-  }
-  .article .lead{
-    font-size:1.22rem;
-    color:#fff;
-    border-left:2px solid var(--gold);
-    padding-left:22px;
-    font-weight:400;
-  }
-  blockquote{
-    margin:1.8em 0;
-    padding:24px 28px;
-    background:var(--navy-mid);
-    border-radius:16px;
-    border:1px solid var(--line);
-    font-family:'Cormorant Garamond',serif;
-    font-style:italic;
-    font-size:1.3rem;
-    color:var(--gold-pale);
-    line-height:1.5;
-  }
-
-  /* hover-term */
-  .term{
-    position:relative;
-    color:var(--gold-light);
-    border-bottom:1px dotted rgba(196,164,90,.55);
-    cursor:help;
-    transition:color .2s;
-  }
-  .term:hover,.term.show{color:#fff}
-  .term::after{
-    content:attr(data-tr);
-    position:absolute;
-    left:50%;bottom:135%;
-    transform:translateX(-50%) translateY(6px);
-    background:var(--gold);
-    color:var(--navy-deep);
-    font-family:'Raleway',sans-serif;
-    font-weight:600;
-    font-size:.78rem;
+    font-size:36px;font-weight:500;line-height:1;color:#fff;
     letter-spacing:.02em;
-    line-height:1.2;
-    white-space:nowrap;
-    padding:7px 13px;
-    border-radius:8px;
-    opacity:0;
-    pointer-events:none;
-    transition:opacity .2s, transform .2s;
-    box-shadow:0 8px 24px rgba(0,0,0,.4);
-    z-index:30;
   }
-  .term::before{
-    content:"";
-    position:absolute;
-    left:50%;bottom:135%;
-    transform:translateX(-50%) translateY(6px);
-    border:6px solid transparent;
-    border-top-color:var(--gold);
-    margin-bottom:-12px;
-    opacity:0;
-    pointer-events:none;
-    transition:opacity .2s, transform .2s;
-    z-index:30;
-  }
-  .term:hover::after,.term:hover::before,
-  .term.show::after,.term.show::before{
-    opacity:1;
-    transform:translateX(-50%) translateY(0);
+  .sidebar__count{
+    margin-top:12px;font-size:11px;letter-spacing:.12em;
+    color:var(--muted);text-transform:uppercase;
   }
 
-  /* ---------- QUIZ ---------- */
-  .q{
-    background:var(--navy-mid);
-    border:1px solid var(--line);
-    border-radius:18px;
-    padding:28px 30px;
-    margin-bottom:24px;
-  }
-  .q .qn{font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:12px}
-  .q .qt{font-size:1.08rem;color:#fff;font-weight:400;margin-bottom:20px;line-height:1.5}
-  .q .qt em{font-style:italic;color:var(--gold-light)}
-  .opt{
-    display:flex;align-items:center;gap:14px;
-    padding:14px 18px;
-    border:1px solid rgba(255,255,255,.1);
-    border-radius:12px;
-    margin-bottom:10px;
-    cursor:pointer;
-    transition:all .18s;
-    font-size:.98rem;
-    color:var(--cream);
+  .nav{overflow-y:auto;flex:1;padding:10px 0 30px}
+  .nav::-webkit-scrollbar{width:6px}
+  .nav::-webkit-scrollbar-thumb{background:rgba(196,164,90,.25);border-radius:3px}
+
+  /* ----- section group ----- */
+  .group__head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 30px 10px;cursor:pointer;
     user-select:none;
   }
-  .opt:hover{border-color:var(--gold);background:rgba(196,164,90,.06)}
-  .opt .mark{
-    width:26px;height:26px;flex-shrink:0;
-    border:1px solid rgba(255,255,255,.25);
-    border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    font-size:.8rem;font-weight:700;
+  .group__label{
+    font-size:11px;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--gold);font-weight:600;
+  }
+  .group__chev{
+    width:8px;height:8px;border-right:1.5px solid var(--gold);
+    border-bottom:1.5px solid var(--gold);transform:rotate(45deg);
+    transition:transform .3s ease;opacity:.7;
+  }
+  .group.collapsed .group__chev{transform:rotate(-45deg)}
+  .group__items{overflow:hidden;transition:max-height .35s ease}
+  .group.collapsed .group__items{max-height:0 !important}
+
+  .toc__item{
+    position:relative;padding:13px 30px 13px 34px;cursor:pointer;
+    border-left:2px solid transparent;
+    transition:background .3s ease,border-color .3s ease;
+  }
+  .toc__item:hover{background:rgba(196,164,90,.06)}
+  .toc__item.active{background:rgba(196,164,90,.10);border-left-color:var(--gold)}
+  .toc__num{
+    font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--gold);
+    letter-spacing:.1em;display:inline-block;width:22px;
+  }
+  .toc__name{
+    font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:500;
+    line-height:1.2;color:var(--cream);transition:color .3s ease;
+  }
+  .toc__item.active .toc__name,.toc__item:hover .toc__name{color:#fff}
+  .group__empty{
+    padding:6px 30px 10px 34px;font-size:12px;font-style:italic;
     color:var(--muted);
-    transition:all .18s;
   }
-  .opt.correct{border-color:var(--ok);background:rgba(91,174,123,.12)}
-  .opt.correct .mark{background:var(--ok);border-color:var(--ok);color:#fff}
-  .opt.wrong{border-color:var(--no);background:rgba(199,123,107,.12)}
-  .opt.wrong .mark{background:var(--no);border-color:var(--no);color:#fff}
-  .opt.locked{cursor:default;pointer-events:none}
-  .opt.dim{opacity:.45}
-  .fb{margin-top:8px;font-size:.88rem;font-weight:500;display:none}
-  .fb.ok{color:var(--ok);display:block}
-  .fb.no{color:var(--no);display:block}
 
-  /* score */
-  .score-panel{
-    text-align:center;
-    background:var(--navy-mid);
-    border:1px solid var(--line);
-    border-radius:18px;
-    padding:34px;
-    margin-top:8px;
+  /* ---------- READER ---------- */
+  .reader{position:relative;flex:1;height:100%;overflow:hidden}
+  .reader__bg{
+    position:absolute;inset:0;background-size:cover;background-position:center;
+    transition:opacity .6s ease,transform 8s ease,filter .5s ease;transform:scale(1.04);opacity:0;
   }
-  .score-panel .big{
-    font-family:'Cormorant Garamond',serif;
-    font-size:3.6rem;
-    color:var(--gold-light);
-    line-height:1;
+  .reader__bg.show{opacity:1}
+  .reader:hover .reader__bg{filter:blur(4px)}
+  .reader__overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(5,13,26,.55) 0%,rgba(5,13,26,.42) 45%,rgba(5,13,26,.72) 100%);
+    transition:background .5s ease;pointer-events:none;
   }
-  .score-panel .lab{font-size:9px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-top:10px}
+  .reader:hover .reader__overlay{
+    background:linear-gradient(180deg,rgba(5,13,26,.80) 0%,rgba(5,13,26,.70) 45%,rgba(5,13,26,.90) 100%);
+  }
+  .reader__scroll{position:relative;z-index:5;height:100%;overflow-y:auto;scroll-behavior:smooth}
+  .reader__scroll::-webkit-scrollbar{width:8px}
+  .reader__scroll::-webkit-scrollbar-thumb{background:rgba(196,164,90,.3);border-radius:4px}
 
-  /* discursive */
-  .dq{
-    background:var(--navy-mid);
-    border:1px solid var(--line);
-    border-radius:18px;
-    padding:26px 30px;
-    margin-bottom:22px;
+  .article{max-width:880px;margin:0 auto;padding:9vh 7vw 16vh}
+  .article__overline{
+    font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-light);
+    font-weight:600;margin-bottom:18px;opacity:0;animation:rise .8s ease forwards;
   }
-  .dq .qn{font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:10px}
-  .dq label{display:block;font-size:1.05rem;color:#fff;font-weight:400;margin-bottom:16px;line-height:1.5}
-  .dq textarea{
-    width:100%;
-    min-height:110px;
-    background:var(--navy-deep);
-    border:1px solid rgba(255,255,255,.12);
-    border-radius:12px;
-    padding:16px;
-    color:var(--cream);
-    font-family:'Raleway',sans-serif;
-    font-size:1rem;
-    font-weight:300;
-    line-height:1.6;
-    resize:vertical;
-    transition:border-color .2s;
+  .article__title{
+    font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5.4vw,68px);font-weight:600;
+    line-height:1.04;color:#fff;margin-bottom:14px;text-shadow:0 2px 30px rgba(0,0,0,.45);
+    opacity:0;animation:rise .8s ease .1s forwards;
   }
-  .dq textarea:focus{outline:none;border-color:var(--gold)}
-  .dq textarea::placeholder{color:rgba(255,255,255,.28)}
-
-  .send-wrap{text-align:center;margin-top:14px}
-  .btn{
-    display:inline-flex;align-items:center;gap:12px;
-    background:var(--gold);
-    color:var(--navy-deep);
-    font-family:'Raleway',sans-serif;
-    font-weight:700;
-    font-size:.92rem;
-    letter-spacing:.06em;
-    text-transform:uppercase;
-    padding:18px 42px;
-    border:none;
-    border-radius:50px;
-    cursor:pointer;
-    transition:all .22s;
-    text-decoration:none;
+  .article__divider{
+    width:64px;height:2px;background:var(--gold);margin:26px 0 40px;
+    opacity:0;animation:rise .8s ease .2s forwards;
   }
-  .btn:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 14px 34px rgba(196,164,90,.28)}
-  .btn svg{width:20px;height:20px}
-  .send-note{font-size:.82rem;color:var(--muted);margin-top:16px}
-
-  /* footer */
-  footer{
-    border-top:1px solid var(--line);
-    text-align:center;
-    padding:48px 24px;
-    margin-top:30px;
-    background:linear-gradient(var(--navy-deep),var(--navy));
+  .article__body{opacity:0;animation:rise 1s ease .3s forwards}
+  .article__body p{
+    font-size:clamp(16px,1.2vw,18px);line-height:1.9;color:#fff;margin-bottom:26px;
+    font-weight:300;text-shadow:0 1px 18px rgba(0,0,0,.55);max-width:740px;
   }
-  footer .brand{font-family:'Cormorant Garamond',serif;font-size:1.7rem;color:var(--gold);letter-spacing:.04em}
-  footer .tag{font-size:9px;letter-spacing:.36em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+  .article__body h2{
+    font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3vw,38px);font-weight:500;
+    color:var(--gold-pale);margin:46px 0 18px;text-shadow:0 2px 24px rgba(0,0,0,.5);
+  }
+  .article__body em{color:var(--gold-pale);font-style:italic}
+  .article__body strong{color:#fff;font-weight:600}
 
-  /* reveal */
-  [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .7s ease, transform .7s ease}
-  [data-reveal].visible{opacity:1;transform:none}
+  .article__placeholder{
+    margin:30px 0;padding:22px 24px;border:1px dashed rgba(196,164,90,.4);
+    border-radius:14px;background:rgba(196,164,90,.06);
+    font-size:14px;line-height:1.6;color:var(--gold-pale);font-style:italic;
+    max-width:740px;
+  }
+  .article__source{
+    margin-top:54px;padding-top:22px;border-top:1px solid rgba(196,164,90,.25);
+    max-width:740px;
+  }
+  .article__source span{
+    display:block;font-size:10px;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--gold);font-weight:600;margin-bottom:7px;
+  }
+  .article__source p{
+    font-size:13px !important;line-height:1.6 !important;color:rgba(255,255,255,.7) !important;
+    margin:0 !important;font-weight:400 !important;font-style:italic;
+  }
 
-  @media(max-width:560px){
-    .meta-card{flex-direction:column;width:100%}
-    .meta-card div+div{border-left:none;border-top:1px solid var(--line)}
-    .q,.dq,.score-panel{padding:22px 20px}
-    .term::after{white-space:normal;max-width:200px;width:max-content}
+  @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+  .empty{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;padding:40px}
+  .empty__title{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold-light)}
+
+  /* ---------- TRANSLATOR ---------- */
+  .tr-fab{
+    position:fixed;bottom:26px;right:26px;z-index:50;
+    width:60px;height:60px;border-radius:50%;cursor:pointer;border:none;
+    background:linear-gradient(135deg,var(--gold) 0%,var(--gold-light) 100%);
+    color:var(--navy-deep);font-family:'Raleway',sans-serif;font-weight:600;
+    font-size:13px;letter-spacing:.04em;
+    box-shadow:0 8px 28px rgba(0,0,0,.4);
+    display:flex;align-items:center;justify-content:center;
+    transition:transform .25s ease,box-shadow .25s ease;
+  }
+  .tr-fab:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 12px 34px rgba(196,164,90,.4)}
+  .tr-fab span{line-height:1;text-align:center}
+
+  .tr-panel{
+    position:fixed;bottom:100px;right:26px;z-index:50;
+    width:380px;max-width:calc(100vw - 40px);
+    background:rgba(8,18,36,.97);backdrop-filter:blur(14px);
+    border:1px solid rgba(196,164,90,.3);border-radius:18px;
+    box-shadow:0 24px 60px rgba(0,0,0,.55);
+    padding:22px;
+    opacity:0;transform:translateY(16px) scale(.97);pointer-events:none;
+    transition:opacity .3s ease,transform .3s ease;
+  }
+  .tr-panel.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+  .tr-panel__head{
+    display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;
+  }
+  .tr-panel__title{
+    font-family:'Cormorant Garamond',serif;font-size:22px;color:#fff;
+  }
+  .tr-panel__title small{
+    display:block;font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--gold);margin-top:2px;font-weight:600;
+  }
+  .tr-close{
+    background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;
+    line-height:1;transition:color .2s ease;
+  }
+  .tr-close:hover{color:#fff}
+  .tr-input{
+    width:100%;min-height:84px;resize:vertical;
+    background:rgba(255,255,255,.05);border:1px solid rgba(196,164,90,.22);
+    border-radius:12px;padding:12px 14px;color:#fff;font-family:'Raleway',sans-serif;
+    font-size:15px;line-height:1.5;outline:none;transition:border-color .25s ease;
+  }
+  .tr-input:focus{border-color:var(--gold)}
+  .tr-input::placeholder{color:var(--muted)}
+  .tr-btn{
+    width:100%;margin-top:12px;padding:12px;border:none;border-radius:30px;cursor:pointer;
+    background:var(--gold);color:var(--navy-deep);font-family:'Raleway',sans-serif;
+    font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+    transition:background .25s ease,transform .15s ease;
+  }
+  .tr-btn:hover{background:var(--gold-light)}
+  .tr-btn:active{transform:scale(.98)}
+  .tr-btn:disabled{opacity:.6;cursor:wait}
+  .tr-result{
+    margin-top:16px;padding:14px;border-radius:12px;
+    background:rgba(196,164,90,.08);border:1px solid rgba(196,164,90,.18);
+    min-height:54px;font-size:15px;line-height:1.6;color:#fff;
+    display:none;
+  }
+  .tr-result.show{display:block}
+  .tr-result.err{color:#f3b6b6;border-color:rgba(243,182,182,.3);background:rgba(243,182,182,.06)}
+  .tr-result small{
+    display:block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--gold);margin-bottom:6px;font-weight:600;
+  }
+
+  /* ---------- MOBILE ---------- */
+  .menu-btn{
+    display:none;position:fixed;top:18px;left:18px;z-index:40;
+    width:46px;height:46px;border:1px solid rgba(196,164,90,.4);
+    background:rgba(5,13,26,.7);backdrop-filter:blur(8px);border-radius:50%;
+    cursor:pointer;align-items:center;justify-content:center;
+  }
+  .menu-btn span{display:block;width:18px;height:1.5px;background:var(--gold-light);position:relative}
+  .menu-btn span::before,.menu-btn span::after{
+    content:'';position:absolute;left:0;width:18px;height:1.5px;background:var(--gold-light)}
+  .menu-btn span::before{top:-6px}.menu-btn span::after{top:6px}
+  .scrim{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:15}
+
+  @media(max-width:860px){
+    .menu-btn{display:flex}
+    .sidebar{position:fixed;top:0;left:0;transform:translateX(-100%);box-shadow:0 0 60px rgba(0,0,0,.5)}
+    .sidebar.open{transform:translateX(0)}
+    .scrim.show{display:block}
+    .article{padding:14vh 8vw 16vh}
   }
 </style>
 </head>
 <body>
 
-<!-- HERO -->
-<header class="hero">
-  <div class="geo r1"></div>
-  <div class="geo r2"></div>
-  <div class="geo diamond"></div>
-  <div class="hero-inner">
-    <div class="overline">MD Talk · Current Affairs English · Reading</div>
-    <h1>Brazil &amp; the <em>European Union</em><br>Export List Dispute</h1>
-    <div class="divider"></div>
-    <p class="hero-desc">A guided reading on trade, sanitary policy and diplomatic response — hover any highlighted word to reveal its meaning in Portuguese.</p>
-    <div class="meta-card">
-      <div><div class="lab">Student</div><div class="val">César Salce</div></div>
-      <div><div class="lab">Date</div><div class="val">28 / 05 / 2026</div></div>
+<button class="menu-btn" id="menuBtn" aria-label="Abrir menu"><span></span></button>
+<div class="scrim" id="scrim"></div>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__head">
+      <div class="sidebar__overline">Instituto MD Talk</div>
+      <h1 class="sidebar__title">Acervo</h1>
+      <div class="sidebar__count" id="count">— textos</div>
     </div>
+    <nav class="nav" id="nav"></nav>
+  </aside>
+
+  <main class="reader" id="reader">
+    <div class="reader__bg" id="bg"></div>
+    <div class="reader__scroll" id="scroll">
+      <article class="article" id="article"></article>
+    </div>
+    <div class="reader__overlay"></div>
+  </main>
+</div>
+
+<!-- TRADUTOR -->
+<button class="tr-fab" id="trFab" aria-label="Tradutor"><span>EN<br>PT</span></button>
+<div class="tr-panel" id="trPanel">
+  <div class="tr-panel__head">
+    <div class="tr-panel__title">Tradutor<small>English → Português (BR)</small></div>
+    <button class="tr-close" id="trClose" aria-label="Fechar">&times;</button>
   </div>
-  <div class="scroll-ind"><span>Read</span><i></i></div>
-</header>
-
-<!-- ARTICLE -->
-<section class="wrap article">
-  <div class="sec-head" data-reveal>
-    <div class="o">The Text</div>
-    <h2>Brazil to Be Removed from EU Export List</h2>
-  </div>
-
-  <div class="hint" data-reveal>
-    <b>Tip</b> — Hover (or tap on mobile) the underlined gold words to see the translation.
-  </div>
-
-  <p class="lead" data-reveal>The Brazilian government stated on Tuesday (May 12) that it received <span class="term" data-tr="com surpresa">“with surprise”</span> the European Union’s <span class="term" data-tr="decisão">decision</span> to <span class="term" data-tr="remover / retirar">remove</span> Brazil from the list of countries <span class="term" data-tr="autorizados">authorized</span> to <span class="term" data-tr="exportar">export</span> <span class="term" data-tr="produtos de origem animal">animal products</span> intended for <span class="term" data-tr="consumo humano">human consumption</span> to the <span class="term" data-tr="bloco">bloc</span> starting in September this year.</p>
-
-  <p data-reveal>The <span class="term" data-tr="comunicado / declaração">statement</span> was made in a <span class="term" data-tr="comunicado conjunto à imprensa">joint press release</span> issued by the <span class="term" data-tr="Ministério das Relações Exteriores">Ministry of Foreign Affairs</span>, the <span class="term" data-tr="Ministério da Agricultura e Pecuária">Ministry of Agriculture and Livestock</span>, and the Ministry of Development, Industry, Trade, and Services.</p>
-
-  <p data-reveal>It says that Brazil will adopt “all necessary <span class="term" data-tr="medidas (aqui: ações)">measures</span>” to <span class="term" data-tr="reverter">reverse</span> the decision and <span class="term" data-tr="garantir / assegurar">ensure</span> the <span class="term" data-tr="continuidade">continuity</span> of exports to the European market.</p>
-
-  <blockquote data-reveal>“The Brazilian government will <span class="term" data-tr="prontamente / sem demora">promptly</span> take all necessary <span class="term" data-tr="medidas (aqui: ações)">measures</span> to reverse this decision, return to the list of authorized countries, and ensure the continued sale of these products to the European market,” the statement <span class="term" data-tr="enfatiza / destaca">emphasizes</span>.</blockquote>
-
-  <div class="subh" data-reveal>Meeting scheduled</div>
-  <p data-reveal>The government reported that the <span class="term" data-tr="chefe">head</span> of the Brazilian <span class="term" data-tr="delegação">delegation</span> to the European Union already has a meeting <span class="term" data-tr="agendada / marcada">scheduled</span> for Wednesday (May 13) with European <span class="term" data-tr="autoridades sanitárias / de saúde">health authorities</span>. The meeting will seek <span class="term" data-tr="esclarecimento">clarification</span> on the <span class="term" data-tr="razões / motivos">reasons</span> behind Brazil’s removal from the list of authorized exporters.</p>
-
-  <p data-reveal>The European Union <span class="term" data-tr="justificou">justified</span> its decision based on <span class="term" data-tr="regras">rules</span> related to the control of <span class="term" data-tr="uso de antimicrobianos">antimicrobial use</span> in <span class="term" data-tr="criação de gado / pecuária">livestock farming</span>.</p>
-
-  <div class="subh" data-reveal>Exports to continue</div>
-  <p data-reveal>According to the report, the decision followed a <span class="term" data-tr="votação">vote</span> by the European Commission’s <span class="term" data-tr="Comitê Permanente">Standing Committee</span> on Plants, Animals, Food, and Feed, which is responsible for <span class="term" data-tr="atualizar">updating</span> the list of countries authorized to export animal products to the European Union.</p>
-
-  <p data-reveal>The government emphasized that, <span class="term" data-tr="apesar de / a despeito de">despite</span> the decision, Brazilian exports are currently <span class="term" data-tr="prosseguindo / seguindo">proceeding</span> as normal and that the European measure is not expected to <span class="term" data-tr="entrar em vigor / fazer efeito">take effect</span> until September 3, 2026.</p>
-
-  <div class="subh" data-reveal>Sanitary defense</div>
-  <p data-reveal>In its official statement, the Brazilian government <span class="term" data-tr="defendeu">defended</span> the quality of the national <span class="term" data-tr="sistema sanitário / de vigilância">sanitary system</span> and <span class="term" data-tr="destacou / ressaltou">highlighted</span> the <span class="term" data-tr="histórico / trajetória">track record</span> of Brazilian agricultural exports.</p>
-
-  <p data-reveal>According to the statement, Brazil has a <span class="term" data-tr="robusto / sólido">“robust</span> health system of internationally <span class="term" data-tr="reconhecida">recognized</span> quality” and is currently the world’s <span class="term" data-tr="maior">largest</span> exporter of <span class="term" data-tr="proteína animal">animal protein</span>.</p>
-
-  <p data-reveal>The government also emphasized that the country has been <span class="term" data-tr="fornecendo / abastecendo">supplying</span> agricultural products to the European market for approximately 40 years.</p>
-</section>
-
-<!-- MCQ QUIZ -->
-<section class="wrap">
-  <div class="sec-head" data-reveal>
-    <div class="o">Part 1 · Vocabulary Check</div>
-    <h2>Multiple Choice</h2>
-  </div>
-  <div class="hint" data-reveal><b>Instant feedback</b> — choose one option per question; it will be corrected immediately.</div>
-
-  <div id="mcq"></div>
-
-  <div class="score-panel" data-reveal>
-    <div class="big" id="score">0 / 5</div>
-    <div class="lab">Your Score</div>
-  </div>
-</section>
-
-<!-- DISCURSIVE -->
-<section class="wrap">
-  <div class="sec-head" data-reveal>
-    <div class="o">Part 2 · Comprehension</div>
-    <h2>Write Your Answers</h2>
-  </div>
-  <div class="hint" data-reveal><b>In English</b> — answer about Brazil’s situation in your own words. Then send everything to your teacher.</div>
-
-  <div class="dq" data-reveal>
-    <div class="qn">Question 1</div>
-    <label>What decision did the European Union make about Brazil, and when is it expected to take effect?</label>
-    <textarea id="d1" placeholder="Write your answer in English..."></textarea>
-  </div>
-
-  <div class="dq" data-reveal>
-    <div class="qn">Question 2</div>
-    <label>What reason did the European Union give for removing Brazil from the list of authorized exporters?</label>
-    <textarea id="d2" placeholder="Write your answer in English..."></textarea>
-  </div>
-
-  <div class="dq" data-reveal>
-    <div class="qn">Question 3</div>
-    <label>How did the Brazilian government respond, and which arguments did it use to defend its sanitary system?</label>
-    <textarea id="d3" placeholder="Write your answer in English..."></textarea>
-  </div>
-
-  <div class="send-wrap" data-reveal>
-    <button class="btn" id="sendBtn">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 001.51 5.26l-.999 3.648 3.978-1.043zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-      Send answers via WhatsApp
-    </button>
-    <p class="send-note">Your name, the date, your quiz score and all three written answers will be sent to your teacher.</p>
-  </div>
-</section>
-
-<footer>
-  <div class="brand">MD Talk</div>
-  <div class="tag">English for Real-World Communication</div>
-</footer>
+  <textarea class="tr-input" id="trInput" placeholder="Digite ou cole o texto em inglês… (ou selecione um trecho da leitura)"></textarea>
+  <button class="tr-btn" id="trBtn">Traduzir</button>
+  <div class="tr-result" id="trResult"></div>
+</div>
 
 <script>
-/* ---------- DATA ---------- */
-const QUESTIONS = [
-  {
-    target:"measure",
-    q:'In the text, the government will take all necessary <em>measures</em>. Here, “measure” is closest in meaning to:',
-    opts:["units of length","actions / steps","musical bars","temperatures"],
-    correct:1,
-    why:'“Measures” here means <b>medidas</b> in the sense of actions or steps taken to achieve a goal.'
-  },
-  {
-    target:"schedule",
-    q:'The delegation already has a meeting <em>scheduled</em> for Wednesday. If something is “scheduled”, it is:',
-    opts:["cancelled","planned for a specific time","forgotten","repeated"],
-    correct:1,
-    why:'To <b>schedule</b> (agendar/marcar) something is to plan it for a specific date or time.'
-  },
-  {
-    target:"despite",
-    q:'“<em>Despite</em> the decision, Brazilian exports are proceeding as normal.” “Despite” means:',
-    opts:["because of","in spite of / even with","instead of","thanks to"],
-    correct:1,
-    why:'<b>Despite</b> = apesar de / a despeito de — it introduces a contrast.'
-  },
-  {
-    target:"highlighted",
-    q:'The government <em>highlighted</em> the track record of its exports. “Highlighted” means it:',
-    opts:["hid it","drew attention to it","criticized it","deleted it"],
-    correct:1,
-    why:'To <b>highlight</b> (destacar/ressaltar) something is to draw attention to it or make it stand out.'
-  },
-  {
-    target:"emphasized",
-    q:'“The statement <em>emphasizes</em>...” To “emphasize” something is to:',
-    opts:["give it special importance","ignore it","doubt it","translate it"],
-    correct:0,
-    why:'To <b>emphasize</b> (enfatizar/frisar) is to give something special importance or stress it.'
-  }
+/* ============================================================
+   ACERVO DE TEXTOS
+   Para adicionar um texto, copie um bloco { ... } e cole na
+   lista. Campos:
+     secao    -> "regular" | "medical" | "business"
+     titulo   -> aparece no menu e como título
+     overline -> linha pequena dourada acima do título (opcional)
+     imagem   -> URL da imagem de fundo
+     conteudo -> o texto. Use <p>...</p> e <h2>...</h2>
+   ============================================================ */
+const SECOES = [
+  { id:'regular',  label:'Regular English'  },
+  { id:'medical',  label:'Medical English'  },
+  { id:'business', label:'Business English' }
 ];
 
-/* ---------- BUILD MCQ ---------- */
-const mcq = document.getElementById('mcq');
-const answered = new Array(QUESTIONS.length).fill(false);
-const letters = ["A","B","C","D"];
+/* Cada texto: cole o conteúdo no lugar indicado por <div class="article__placeholder">.
+   O campo "fonte" aparece automaticamente no fim do texto. */
+const acervo = [
 
-QUESTIONS.forEach((item, qi)=>{
-  const card = document.createElement('div');
-  card.className = 'q';
-  card.setAttribute('data-reveal','');
-  let html = `<div class="qn">Question ${qi+1}</div><div class="qt">${item.q}</div>`;
-  item.opts.forEach((o,oi)=>{
-    html += `<div class="opt" data-q="${qi}" data-o="${oi}"><span class="mark">${letters[oi]}</span><span>${o}</span></div>`;
-  });
-  html += `<div class="fb" id="fb${qi}"></div>`;
-  card.innerHTML = html;
-  mcq.appendChild(card);
-});
+  /* ===================== REGULAR ENGLISH ===================== */
+  {
+    secao:'regular',
+    titulo:"Expiration Dates Are Meaningless",
+    overline:"The Atlantic · Health",
+    imagem:"https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1920&q=80",
+    conteudo:`
+      <p>A look at why the dates printed on our food tell us far less than we assume — and how much of what we throw away is, in truth, still perfectly good to eat.</p>
+      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
+    `,
+    fonte:"Tayag, Yasmin. “Expiration Dates Are Meaningless.” The Atlantic, 30 Nov. 2022."
+  },
+  {
+    secao:'regular',
+    titulo:"Old Enough: Experts Are Torn",
+    overline:"Insider · Parenting",
+    imagem:"https://images.unsplash.com/photo-1480796927426-f609979314bd?auto=format&fit=crop&w=1920&q=80",
+    conteudo:`
+      <p>A Japanese show sends toddlers on errands across busy cities — alone. Two parenting experts disagree on whether it celebrates independence or asks too much, too soon.</p>
+      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
+    `,
+    fonte:"Ridley, Jane. “A new Japanese show on Netflix sends toddlers into busy cities on their own…” Insider, 8 Apr. 2022."
+  },
+  {
+    secao:'regular',
+    titulo:"The 7 Types of Rest Everyone Needs",
+    overline:"Stylist · Mental Health",
+    imagem:"https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=1920&q=80",
+    conteudo:`
+      <p>Why a full night of sleep can still leave you exhausted: a physician's case that the body needs seven distinct kinds of rest, not just one.</p>
+      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
+    `,
+    fonte:"“The 7 types of rest everyone needs – and how to get them.” Stylist (citing Dr Saundra Dalton-Smith)."
+  },
+  {
+    secao:'regular',
+    titulo:"The Perks of Taking the High Road",
+    overline:"The Atlantic · How to Build a Life",
+    imagem:"https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1920&q=80",
+    conteudo:`
+      <p>On disagreement as an act of generosity — and why offering your values as a gift, rather than wielding them as a weapon, is the only way to truly change a mind.</p>
+      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
+    `,
+    fonte:"Brooks, Arthur C. “A Gentler, Better Way to Change Minds.” The Atlantic, 7 Apr. 2022."
+  },
 
-function updateScore(){
-  let s=0;
-  QUESTIONS.forEach((item,qi)=>{
-    if(answered[qi]==='right') s++;
-  });
-  document.getElementById('score').textContent = s + ' / ' + QUESTIONS.length;
-}
+  /* ===================== MEDICAL ENGLISH ===================== */
+  {
+    secao:'medical',
+    titulo:"I Want to Kill You",
+    overline:"Journal of Clinical Oncology · Art of Oncology",
+    imagem:"https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1920&q=80",
+    conteudo:`
+      <p>An oncologist's firsthand account of being threatened by a patient — and a hard look at how institutions fail to protect the clinicians who deliver bad news.</p>
+      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
+    `,
+    fonte:"LoConte, Noelle K. “I Want to Kill You.” Journal of Clinical Oncology, ASCO, 2023. DOI 10.1200/JCO.22.02896."
+  },
+  {
+    secao:'medical',
+    titulo:"My White Coat Doesn't Fit",
+    overline:"Journal of Clinical Oncology · Art of Oncology",
+    imagem:"https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=1920&q=80",
+    conteudo:`
+      <p>A Latina physician's journey from erasing herself to fit in, to reclaiming her identity — and finding, at last, that her white coat could carry her own colors.</p>
+      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
+    `,
+    fonte:"Duma, Narjust. “My White Coat Doesn't Fit.” Journal of Clinical Oncology, ASCO, 2022. DOI 10.1200/JCO.21.02601."
+  },
+  {
+    secao:'medical',
+    titulo:"Ten Traits of Great Physicians",
+    overline:"The American Journal of Medicine · Review",
+    imagem:"https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1920&q=80",
+    conteudo:`
+      <p>The habits that separate a good doctor from a great one — told through vivid clinical stories, from playing detective to truly listening to the patient.</p>
+      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
+    `,
+    fonte:"Higgins, John P. “Ten Traits of Great Physicians.” The American Journal of Medicine, vol. 136, 2023, pp. 355–359."
+  },
+  {
+    secao:'medical',
+    titulo:"The Road Less Traveled",
+    overline:"JCO Global Oncology · Art of Global Oncology",
+    imagem:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1920&q=80",
+    conteudo:`
+      <p>A patient declines treatment that could extend his life, choosing instead to return home to family. An oncologist learns to honour a path she did not expect.</p>
+      <div class="article__placeholder">Este artigo é publicado sob licença Creative Commons BY 4.0 — você pode colar o texto completo aqui livremente, mantendo o crédito da fonte.</div>
+    `,
+    fonte:"Lim, Stephanie Hui-Su. “The Road Less Traveled: Perspective From an Australian Oncologist.” JCO Global Oncology, ASCO, 2024. DOI 10.1200/GO.23.00406 (CC BY 4.0)."
+  },
+  {
+    secao:'medical',
+    titulo:"Afternoons in the Tower of Babel",
+    overline:"Journal of Clinical Oncology · Art of Oncology",
+    imagem:"https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=1920&q=80",
+    conteudo:`
+      <p>In a windowless room beside the ICU, an oncologist tries to translate the language of dying into words a grieving family can hold — and finds the body speaks too.</p>
+      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
+    `,
+    fonte:"Meisenberg, Barry R. “Afternoons in the Tower of Babel.” Journal of Clinical Oncology, vol. 41, no. 25, ASCO, 2023, pp. 4180–4181."
+  },
+  {
+    secao:'medical',
+    titulo:"What Your Doctor Writes About You",
+    overline:"The Atlantic · Health",
+    imagem:"https://images.unsplash.com/photo-1583912267550-d6c2ac3196c0?auto=format&fit=crop&w=1920&q=80",
+    conteudo:`
+      <p>You can now read every note your doctor writes about you. A look at the promise — and the quiet complications — of transparency in medicine.</p>
+      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
+    `,
+    fonte:"Qureshi, Zoya. “Do You Really Want to Read What Your Doctor Writes About You?” The Atlantic, 15 Nov. 2022."
+  },
 
-document.querySelectorAll('.opt').forEach(opt=>{
-  opt.addEventListener('click', ()=>{
-    const qi = +opt.dataset.q;
-    const oi = +opt.dataset.o;
-    if(answered[qi]) return;            // lock after first answer
-    const item = QUESTIONS[qi];
-    const card = opt.closest('.q');
-    const fb = document.getElementById('fb'+qi);
-    card.querySelectorAll('.opt').forEach(o=>{
-      o.classList.add('locked');
-      const ooi = +o.dataset.o;
-      if(ooi === item.correct){ o.classList.add('correct'); o.querySelector('.mark').textContent='✓'; }
-      else if(ooi === oi){ o.classList.add('wrong'); o.querySelector('.mark').textContent='✕'; }
-      else { o.classList.add('dim'); }
-    });
-    if(oi === item.correct){
-      answered[qi]='right';
-      fb.className='fb ok';
-      fb.innerHTML='Correct. '+item.why;
-    } else {
-      answered[qi]='wrong';
-      fb.className='fb no';
-      fb.innerHTML='Not quite. '+item.why;
-    }
-    updateScore();
-  });
-});
-
-/* ---------- TAP-TO-REVEAL (mobile) for terms ---------- */
-document.querySelectorAll('.term').forEach(t=>{
-  t.addEventListener('click', e=>{
-    e.stopPropagation();
-    document.querySelectorAll('.term.show').forEach(o=>{ if(o!==t) o.classList.remove('show'); });
-    t.classList.toggle('show');
-  });
-});
-document.addEventListener('click', ()=>{
-  document.querySelectorAll('.term.show').forEach(o=>o.classList.remove('show'));
-});
-
-/* ---------- SCROLL REVEAL ---------- */
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('visible'); io.unobserve(en.target);} });
-},{threshold:.12});
-document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
-
-/* ---------- WHATSAPP SEND ---------- */
-const PHONE = "5514997758941";  // 55 (BR) + 14 + 997758941
-document.getElementById('sendBtn').addEventListener('click', ()=>{
-  const d1 = document.getElementById('d1').value.trim();
-  const d2 = document.getElementById('d2').value.trim();
-  const d3 = document.getElementById('d3').value.trim();
-  let score = 0;
-  answered.forEach(a=>{ if(a==='right') score++; });
-
-  if(!d1 && !d2 && !d3){
-    alert("Please answer at least one written question before sending.");
-    return;
+  /* ===================== BUSINESS ENGLISH ===================== */
+  {
+    secao:'business',
+    titulo:"The Rise of the 9 p.m. Work Hour",
+    overline:"The Atlantic · Ideas",
+    imagem:"https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1920&q=80",
+    conteudo:`
+      <p>Remote work has split the day into islands of productivity — and pushed a new mountain of labour into the late evening. Why the meeting age created the worknight.</p>
+      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
+    `,
+    fonte:"Thompson, Derek. “This Is What Happens When There Are Too Many Meetings.” The Atlantic, 4 Apr. 2022."
+  },
+  {
+    secao:'business',
+    titulo:"Why Overthinkers Struggle With Remote Work",
+    overline:"BBC Worklife · How We Work",
+    imagem:"https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1920&q=80",
+    conteudo:`
+      <p>The same conscientiousness that makes overthinkers excellent colleagues can turn against them when remote work removes the small cues that once eased their doubts.</p>
+      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
+    `,
+    fonte:"Lufkin, Bryan. “Why overthinkers struggle with remote work.” BBC Worklife, 9 Aug. 2022."
   }
 
-  const L = [];
-  L.push("*MD Talk — Reading Lesson*");
-  L.push("Brazil & the EU Export List Dispute");
-  L.push("");
-  L.push("Student: César Salce");
-  L.push("Date: 28/05/2026");
-  L.push("Vocabulary quiz score: " + score + "/5");
-  L.push("");
-  L.push("*Written answers*");
-  L.push("");
-  L.push("1) What decision did the EU make and when does it take effect?");
-  L.push(d1 || "(no answer)");
-  L.push("");
-  L.push("2) What reason did the EU give for the removal?");
-  L.push(d2 || "(no answer)");
-  L.push("");
-  L.push("3) How did Brazil respond / defend its sanitary system?");
-  L.push(d3 || "(no answer)");
+];
 
-  const text = encodeURIComponent(L.join("\n"));
-  window.open("https://wa.me/" + PHONE + "?text=" + text, "_blank");
+/* ---------- RENDER ---------- */
+const navEl   = document.getElementById('nav');
+const bgEl     = document.getElementById('bg');
+const articleEl= document.getElementById('article');
+const scrollEl = document.getElementById('scroll');
+const countEl  = document.getElementById('count');
+const sidebar  = document.getElementById('sidebar');
+const scrim    = document.getElementById('scrim');
+
+function roman(n){
+  const map=[["X",10],["IX",9],["V",5],["IV",4],["I",1]];
+  let r="";for(const[s,v]of map){while(n>=v){r+=s;n-=v;}}return r;
+}
+
+function buildNav(){
+  navEl.innerHTML='';
+  SECOES.forEach(sec=>{
+    const itens = acervo.map((t,i)=>({t,i})).filter(x=>x.t.secao===sec.id);
+
+    const group=document.createElement('div');
+    group.className='group';
+
+    const head=document.createElement('div');
+    head.className='group__head';
+    head.innerHTML=`<span class="group__label">${sec.label}</span><span class="group__chev"></span>`;
+
+    const items=document.createElement('div');
+    items.className='group__items';
+
+    if(itens.length===0){
+      items.innerHTML=`<div class="group__empty">Em breve…</div>`;
+    } else {
+      itens.forEach(({t,i},k)=>{
+        const li=document.createElement('div');
+        li.className='toc__item';
+        li.dataset.index=i;
+        li.innerHTML=`<span class="toc__num">${roman(k+1)}</span><span class="toc__name">${t.titulo}</span>`;
+        li.addEventListener('click',()=>openText(i));
+        items.appendChild(li);
+      });
+    }
+
+    head.addEventListener('click',()=>{
+      group.classList.toggle('collapsed');
+      items.style.maxHeight = group.classList.contains('collapsed') ? '0px' : items.scrollHeight+'px';
+    });
+
+    group.appendChild(head);
+    group.appendChild(items);
+    navEl.appendChild(group);
+    // set initial open height
+    requestAnimationFrame(()=>{ items.style.maxHeight = items.scrollHeight+'px'; });
+  });
+
+  countEl.textContent = acervo.length + (acervo.length===1?' texto':' textos');
+}
+
+function openText(i){
+  const t=acervo[i];
+  if(!t) return;
+
+  bgEl.classList.remove('show');
+  setTimeout(()=>{
+    bgEl.style.backgroundImage=`url('${t.imagem}')`;
+    bgEl.classList.add('show');
+  },120);
+
+  articleEl.innerHTML=`
+    ${t.overline?`<div class="article__overline">${t.overline}</div>`:''}
+    <h2 class="article__title">${t.titulo}</h2>
+    <div class="article__divider"></div>
+    <div class="article__body">${t.conteudo}
+      ${t.fonte?`<div class="article__source"><span>Fonte</span><p>${t.fonte}</p></div>`:''}
+    </div>
+  `;
+  articleEl.querySelectorAll('[class^="article__"]').forEach(el=>{
+    el.style.animation='none';el.offsetHeight;el.style.animation='';
+  });
+  scrollEl.scrollTop=0;
+
+  document.querySelectorAll('.toc__item').forEach(it=>{
+    it.classList.toggle('active', +it.dataset.index===i);
+  });
+  closeMenu();
+}
+
+/* ---------- TRANSLATOR ---------- */
+const trFab=document.getElementById('trFab');
+const trPanel=document.getElementById('trPanel');
+const trClose=document.getElementById('trClose');
+const trInput=document.getElementById('trInput');
+const trBtn=document.getElementById('trBtn');
+const trResult=document.getElementById('trResult');
+
+function openTr(){trPanel.classList.add('open');trInput.focus();}
+function closeTr(){trPanel.classList.remove('open');}
+trFab.addEventListener('click',()=>trPanel.classList.contains('open')?closeTr():openTr());
+trClose.addEventListener('click',closeTr);
+
+async function translate(text){
+  // 1ª tentativa: Google (gtx)
+  try{
+    const url=`https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=pt&dt=t&q=${encodeURIComponent(text)}`;
+    const r=await fetch(url);
+    if(r.ok){
+      const data=await r.json();
+      return data[0].map(seg=>seg[0]).join('');
+    }
+  }catch(e){/* tenta o próximo */}
+
+  // 2ª tentativa: MyMemory (fallback)
+  try{
+    const url=`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|pt-BR`;
+    const r=await fetch(url);
+    const data=await r.json();
+    if(data.responseData&&data.responseData.translatedText){
+      return data.responseData.translatedText;
+    }
+  }catch(e){/* falhou */}
+
+  throw new Error('fail');
+}
+
+async function runTranslate(){
+  const text=trInput.value.trim();
+  if(!text){trInput.focus();return;}
+  trBtn.disabled=true;trBtn.textContent='Traduzindo…';
+  trResult.className='tr-result show';
+  trResult.innerHTML='<small>Português (BR)</small>…';
+  try{
+    const out=await translate(text);
+    trResult.className='tr-result show';
+    trResult.innerHTML=`<small>Português (BR)</small>${out}`;
+  }catch(e){
+    trResult.className='tr-result show err';
+    trResult.innerHTML='<small>Erro</small>Não foi possível traduzir agora. Verifique a conexão — o tradutor funciona normalmente quando a página está publicada (GitHub Pages).';
+  }finally{
+    trBtn.disabled=false;trBtn.textContent='Traduzir';
+  }
+}
+trBtn.addEventListener('click',runTranslate);
+trInput.addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)) runTranslate();
 });
+
+// traduzir automaticamente ao selecionar um trecho da leitura
+scrollEl.addEventListener('mouseup',()=>{
+  const sel=window.getSelection().toString().trim();
+  if(sel.length>1){
+    trInput.value=sel;
+    openTr();
+    runTranslate();
+  }
+});
+
+/* ---------- MOBILE MENU ---------- */
+function openMenu(){sidebar.classList.add('open');scrim.classList.add('show');}
+function closeMenu(){sidebar.classList.remove('open');scrim.classList.remove('show');}
+document.getElementById('menuBtn').addEventListener('click',openMenu);
+scrim.addEventListener('click',closeMenu);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();closeTr();}});
+
+/* ---------- INIT ---------- */
+buildNav();
+if(acervo.length){ openText(0); }
+else{ articleEl.innerHTML='<div class="empty"><div class="empty__title">Acervo vazio</div></div>'; }
 </script>
 </body>
 </html>
