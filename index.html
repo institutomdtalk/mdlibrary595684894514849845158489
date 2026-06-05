@@ -67,6 +67,17 @@
   }
   .sidebar__head,.nav{position:relative;z-index:1}
 
+
+  .voltar-portal-btn{
+    display:flex;align-items:center;gap:8px;
+    padding:8px 0;margin-bottom:20px;
+    background:none;border:none;cursor:pointer;
+    font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;
+    letter-spacing:.18em;text-transform:uppercase;
+    color:rgba(196,164,90,.7);transition:color .2s;
+  }
+  .voltar-portal-btn:hover{color:var(--gold)}
+  .voltar-portal-btn svg{width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
   .sidebar__head{
     padding:38px 30px 24px;
     border-bottom:1px solid rgba(196,164,90,.14);
@@ -78,11 +89,7 @@
   .sidebar__title{
     font-family:'Cormorant Garamond',serif;
     font-size:38px;font-weight:500;line-height:1;letter-spacing:.02em;
-    background:linear-gradient(100deg,#fff 0%,var(--gold-pale) 38%,#fff 58%,var(--gold-light) 100%);
-    background-size:200% auto;
-    -webkit-background-clip:text;background-clip:text;
-    -webkit-text-fill-color:transparent;color:transparent;
-    animation:titleShine 7s linear infinite;
+    color:#fff;
   }
   @keyframes titleShine{to{background-position:200% center}}
   .sidebar__count{
@@ -555,6 +562,10 @@
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
     </button>
     <div class="sidebar__head">
+      <button class="voltar-portal-btn" onclick="voltarAoPortal()">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        Voltar ao Portal
+      </button>
       <div class="sidebar__overline">Instituto MD Talk</div>
       <h1 class="sidebar__title">Acervo</h1>
       <div class="sidebar__count" id="count">— textos</div>
