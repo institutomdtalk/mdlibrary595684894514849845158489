@@ -1449,8 +1449,8 @@ async function carregarDaPlanilha(){
 
 /* ---------- INIT ---------- */
 buildNav();
+articleEl.innerHTML='<div class="empty"><div class="empty__title" style="font-size:1rem;opacity:.5">Carregando acervo…</div></div>';
 if(acervo.length) openText(0);
-else articleEl.innerHTML='<div class="empty"><div class="empty__title">Acervo vazio</div></div>';
 carregarDaPlanilha();
 </script>
 </body>
