@@ -456,15 +456,16 @@
     .scrim.show{display:block}
     .article{padding:14vh 8vw 16vh}
     .nav-collapse{
-    position:absolute;top:14px;right:12px;
-    width:28px;height:28px;border-radius:50%;
-    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+    position:absolute;top:0;right:-1px;
+    width:16px;height:80px;
+    background:transparent;
+    border:none;
     display:flex;align-items:center;justify-content:center;
-    cursor:pointer;transition:all .2s;color:rgba(255,255,255,.45);
-    flex-shrink:0;
+    cursor:pointer;transition:all .3s;
+    color:rgba(196,164,90,0);padding:0;
   }
-  .nav-collapse:hover{background:rgba(255,255,255,.12);color:#fff}
-  .nav-collapse svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .nav-collapse:hover{color:rgba(196,164,90,.7)}
+  .nav-collapse svg{width:10px;height:10px;stroke:currentColor;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
   }
 
   /* ---------- RECOLHER MENU (desktop) ---------- */
