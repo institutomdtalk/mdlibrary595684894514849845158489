@@ -456,16 +456,25 @@
     .scrim.show{display:block}
     .article{padding:14vh 8vw 16vh}
     .nav-collapse{
-    position:absolute;top:0;right:-1px;
-    width:16px;height:80px;
-    background:transparent;
-    border:none;
+    position:absolute;top:14px;right:12px;
+    width:32px;height:32px;
+    background:none;border:none;border-radius:50%;
     display:flex;align-items:center;justify-content:center;
-    cursor:pointer;transition:all .3s;
-    color:rgba(196,164,90,.25);padding:0;
+    cursor:pointer;color:rgba(196,164,90,.45);
+    transition:color .3s;
   }
-  .nav-collapse:hover{color:rgba(196,164,90,.8)}
-  .nav-collapse svg{width:10px;height:10px;stroke:currentColor;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .nav-collapse:hover{color:rgba(196,164,90,.9)}
+  .nav-collapse:hover .nc-orbit{opacity:1}
+  .nc-orbit{
+    position:absolute;inset:0;border-radius:50%;
+    border:1.5px solid transparent;
+    border-top-color:rgba(196,164,90,.7);
+    border-right-color:rgba(196,164,90,.25);
+    opacity:0;transition:opacity .3s;
+    animation:nc-spin 1.8s linear infinite;
+  }
+  @keyframes nc-spin{to{transform:rotate(360deg)}}
+  .nav-collapse svg{width:11px;height:11px;stroke:currentColor;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;position:relative;z-index:1}
   }
 
   /* ---------- RECOLHER MENU (desktop) ---------- */
@@ -568,6 +577,7 @@
 <div class="app">
   <aside class="sidebar" id="sidebar">
     <button class="nav-collapse" id="navCollapse" aria-label="Recolher menu" title="Recolher menu">
+      <span class="nc-orbit"></span>
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
     </button>
     <div class="sidebar__head">
