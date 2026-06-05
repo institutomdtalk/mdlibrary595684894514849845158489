@@ -507,25 +507,8 @@
 <button class="nav-show" id="navShow" aria-label="Mostrar menu" title="Mostrar menu">
   <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
 </button>
-<button class="home-btn" id="homeBtn" aria-label="Voltar ao início" title="Voltar ao início">
-  <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
-  Acervo
-</button>
 <div class="scrim" id="scrim"></div>
 
-<div class="home" id="home">
-  <div class="home__media">
-    <div class="home__bg" id="homeBgA"></div>
-    <div class="home__bg" id="homeBgB"></div>
-    <div class="home__overlay"></div>
-  </div>
-  <div class="home__inner">
-    <div class="home__overline">Instituto MD Talk</div>
-    <h1 class="home__title">O <em>Acervo</em></h1>
-    <p class="home__sub">Leituras selecionadas em inglês. Escolha um tema para começar — ou veja todos os textos.</p>
-    <div class="home__themes" id="homeThemes"></div>
-  </div>
-</div>
 
 <div class="app">
   <aside class="sidebar" id="sidebar">
@@ -534,7 +517,7 @@
     </button>
     <div class="sidebar__head">
       <div class="sidebar__overline">Instituto MD Talk</div>
-      <h1 class="sidebar__title" onclick="showHome()" title="Voltar ao início">Acervo</h1>
+      <h1 class="sidebar__title">Acervo</h1>
       <div class="sidebar__count" id="count">— textos</div>
     </div>
     <div class="filters" id="filters"></div>
@@ -1020,7 +1003,6 @@ function buildNav(){
   });
 
   countEl.textContent = acervo.length + (acervo.length===1?' texto':' textos');
-  buildHome();
   if(filtroAtual!=='Todos') aplicarFiltro(filtroAtual);
 }
 
@@ -1315,7 +1297,6 @@ document.getElementById('navCollapse').addEventListener('click',()=>{
 document.getElementById('navShow').addEventListener('click',()=>{
   document.body.classList.remove('nav-collapsed');
 });
-document.getElementById('homeBtn').addEventListener('click',showHome);
 
 /* desfocar o fundo ao passar o mouse sobre o menu da home */
 (function(){
@@ -1357,13 +1338,15 @@ async function carregarDaPlanilha(){
         fonte:d.fonte||''
       }));
       buildNav();
+      openText(0);
     }
   }catch(e){ /* falhou: mantém o acervo de reserva */ }
 }
 
 /* ---------- INIT ---------- */
 buildNav();
-if(!acervo.length){ articleEl.innerHTML='<div class="empty"><div class="empty__title">Acervo vazio</div></div>'; }
+if(acervo.length) openText(0);
+else articleEl.innerHTML='<div class="empty"><div class="empty__title">Acervo vazio</div></div>';
 carregarDaPlanilha();
 </script>
 </body>
