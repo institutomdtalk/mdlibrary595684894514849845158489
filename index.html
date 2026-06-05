@@ -1146,13 +1146,9 @@ function openText(i){
 
   document.querySelectorAll('.toc__item').forEach(it=>{
     it.classList.toggle('active', +it.dataset.index===i);
-    if(_lidos.has(+it.dataset.index)) it.classList.add('lido');
+    const tit=acervo[+it.dataset.index]&&acervo[+it.dataset.index].titulo;
+    if(tit) it.classList.toggle('lido',_lidos.has(tit));
   });
-  _lidos.add(i);
-  if(window.parent!==window){
-    const _t=acervo[i];
-    window.parent.postMessage({type:'mdlibrary_read',titulo:_t.titulo,tema:_t.tema},'*');
-  }
   closeMenu();
 }
 
@@ -1249,6 +1245,15 @@ async function runTranslate(){
     trBtn.disabled=false;trBtn.textContent='Traduzir';
   }
 }
+function voltarAoPortal(){
+  if(window.parent!==window) window.parent.postMessage({type:'mdlibrary_back'},'*');
+}
+function applyLidosToNav(){
+  document.querySelectorAll('.toc__item').forEach(it=>{
+    const tit=acervo[+it.dataset.index]&&acervo[+it.dataset.index].titulo;
+    if(tit) it.classList.toggle('lido',_lidos.has(tit));
+  });
+}
 function saveTermToPortal(){
   if(!_lastTermo) return;
   const btn=document.getElementById('save-term-btn');
@@ -1267,6 +1272,10 @@ window.addEventListener('message',function(e){
   if(e.data.type==='mdlibrary_term_saved'){
     const btn=document.getElementById('save-term-btn');
     if(btn){btn.innerHTML=e.data.success?'✓ Salvo em Meus Termos':'⚠ Erro ao salvar';btn.disabled=true;}
+  }
+  if(e.data.type==='mdlibrary_leituras'){
+    (e.data.lidos||[]).forEach(t=>_lidos.add(t));
+    applyLidosToNav();
   }
 });
 trBtn.addEventListener('click',runTranslate);
@@ -1339,6 +1348,7 @@ async function carregarDaPlanilha(){
       }));
       buildNav();
       openText(0);
+      applyLidosToNav();
     }
   }catch(e){ /* falhou: mantém o acervo de reserva */ }
 }
