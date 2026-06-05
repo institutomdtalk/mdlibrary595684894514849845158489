@@ -984,8 +984,20 @@ function buildNav(){
         li.dataset.index=i;
         li.dataset.tema=t.tema||'';
         li.style.animationDelay=(k*0.045)+'s';
-        li.innerHTML=`<span class="toc__name">${t.titulo}</span>`;
+        li.innerHTML=`<span class="toc__check"></span><span class="toc__name">${t.titulo}</span>`;
+        if(_lidos.has(t.titulo)) li.classList.add('lido');
         li.addEventListener('click',()=>openText(i));
+        li.querySelector('.toc__check').addEventListener('click',e=>{
+          e.stopPropagation();
+          const isLido=_lidos.has(t.titulo);
+          if(!isLido){
+            _lidos.add(t.titulo); li.classList.add('lido');
+            if(window.parent!==window) window.parent.postMessage({type:'mdlibrary_toggle_leitura',titulo:t.titulo,tema:t.tema||'',acao:'marcar'},'*');
+          }else{
+            _lidos.delete(t.titulo); li.classList.remove('lido');
+            if(window.parent!==window) window.parent.postMessage({type:'mdlibrary_toggle_leitura',titulo:t.titulo,tema:t.tema||'',acao:'desmarcar'},'*');
+          }
+        });
         items.appendChild(li);
       });
     }
