@@ -10,7 +10,7 @@
 <style>
   :root{
     --navy:#0B1D3A;
-    --navy-deep:#050D1A; 
+    --navy-deep:#050D1A;
     --navy-mid:#0F2645;
     --navy-light:#163158;
     --gold:#C4A45A;
@@ -258,6 +258,18 @@
   }
   .portal-back-btn:hover{color:var(--gold-light);border-color:rgba(196,164,90,.5)}
   .portal-back-btn svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  #portal-back-fixed{
+    position:fixed;top:16px;left:16px;z-index:9999;
+    display:none;align-items:center;gap:7px;
+    padding:7px 16px;border-radius:20px;cursor:pointer;
+    font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;
+    letter-spacing:.15em;text-transform:uppercase;
+    color:rgba(196,164,90,.9);background:rgba(11,29,58,.85);
+    border:1px solid rgba(196,164,90,.35);backdrop-filter:blur(8px);
+    transition:.25s ease;
+  }
+  #portal-back-fixed:hover{color:var(--gold);border-color:var(--gold)}
+  #portal-back-fixed svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
   .toc__num{
     font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--gold);
     letter-spacing:.1em;display:inline-block;width:22px;
@@ -1218,7 +1230,11 @@ ${t.overline?`<p class="ov">${t.overline}</p>`:''}
 <div class="body">${t.conteudo}</div>
 ${t.fonte?`<p class="src"><span>Fonte</span>${t.fonte}</p>`:''}
 <p class="brand">Instituto MD Talk</p>
-</div></body></html>`;
+</div><button id="portal-back-fixed" onclick="voltarAoPortal()">
+  <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+  Voltar ao Portal
+</button>
+</body></html>`;
   const slug=(t.titulo||'texto').normalize('NFD').replace(/[\u0300-\u036f]/g,'')
     .replace(/[^a-z0-9]+/gi,'-').replace(/^-+|-+$/g,'').toLowerCase().slice(0,60)||'texto';
   const blob=new Blob([doc],{type:'text/html;charset=utf-8'});
@@ -1287,6 +1303,17 @@ async function runTranslate(){
 function voltarAoPortal(){
   if(window.parent!==window) window.parent.postMessage({type:'mdlibrary_back'},'*');
 }
+function setFullscreenUI(isFS){
+  var btn=document.getElementById('portal-back-fixed');
+  if(btn) btn.style.display=isFS?'flex':'none';
+}
+window.addEventListener('message',function(e){
+  if(e.data&&e.data.type==='mdlibrary_fullscreen_changed') setFullscreenUI(e.data.isFS);
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'&&window.parent!==window)
+    window.parent.postMessage({type:'mdlibrary_exit_fullscreen'},'*');
+});
 function applyLidosToNav(){
   document.querySelectorAll('.toc__item').forEach(it=>{
     const tit=acervo[+it.dataset.index]&&acervo[+it.dataset.index].titulo;
