@@ -215,11 +215,12 @@
   .group.collapsed .group__items{max-height:0 !important}
 
   .toc__item{
-    position:relative;padding:13px 30px 13px 34px;cursor:pointer;
+    position:relative;padding:12px 20px 12px 20px;cursor:pointer;
     border-left:2px solid transparent;
     opacity:0;transform:translateX(-12px);
     animation:tocIn .55s cubic-bezier(.16,1,.3,1) forwards;
-    transition:background .35s ease,padding-left .35s ease;
+    transition:background .35s ease;
+    display:flex;align-items:flex-start;gap:12px;
   }
   .toc__item::before{
     content:'';position:absolute;left:0;top:6px;bottom:6px;width:2px;
@@ -228,9 +229,35 @@
     transform:scaleY(0);transform-origin:top;
     transition:transform .4s cubic-bezier(.16,1,.3,1);
   }
-  .toc__item:hover{background:rgba(196,164,90,.07);padding-left:40px}
+  .toc__item:hover{background:rgba(196,164,90,.07)}
   .toc__item:hover::before,.toc__item.active::before{transform:scaleY(1)}
   .toc__item.active{background:rgba(196,164,90,.12)}
+  .toc__check{
+    flex-shrink:0;width:18px;height:18px;margin-top:3px;
+    border:1.5px solid rgba(196,164,90,.35);border-radius:50%;
+    transition:all .25s;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .toc__check:hover{border-color:var(--gold);background:rgba(196,164,90,.1)}
+  .toc__item.lido .toc__check{
+    background:var(--gold);border-color:var(--gold);
+    box-shadow:0 0 8px rgba(196,164,90,.4);
+  }
+  .toc__item.lido .toc__check::after{
+    content:'';display:block;width:5px;height:9px;
+    border-right:2px solid var(--navy-deep);border-bottom:2px solid var(--navy-deep);
+    transform:rotate(45deg);margin-top:-2px;
+  }
+  .portal-back-btn{
+    display:inline-flex;align-items:center;gap:7px;margin-bottom:18px;
+    padding:6px 14px;border-radius:20px;cursor:pointer;
+    font-family:'Raleway',sans-serif;font-size:10px;font-weight:600;
+    letter-spacing:.15em;text-transform:uppercase;
+    color:var(--muted);background:rgba(255,255,255,.04);
+    border:1px solid rgba(196,164,90,.22);transition:.25s ease;
+  }
+  .portal-back-btn:hover{color:var(--gold-light);border-color:rgba(196,164,90,.5)}
+  .portal-back-btn svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
   .toc__num{
     font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--gold);
     letter-spacing:.1em;display:inline-block;width:22px;
