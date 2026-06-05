@@ -1062,12 +1062,26 @@ function textToHtml(t){
 }
 
 async function carregarDaPlanilha(){
-  if(!SHEETS_URL) return;                          /* sem URL: mantém os textos embutidos */
+  if(!SHEETS_URL) return;
+  const CACHE_KEY='mdtalk_acervo_v1';
+  // ── usar cache imediatamente se disponível ──
   try{
-    const r = await fetch(SHEETS_URL);
-    const dados = await r.json();
-    if(Array.isArray(dados) && dados.length){
-      acervo = dados.map(d=>({
+    const cached=localStorage.getItem(CACHE_KEY);
+    if(cached){
+      const arr=JSON.parse(cached);
+      if(Array.isArray(arr)&&arr.length){
+        acervo=arr; buildNav(); openText(0); applyLidosToNav();
+        var nl=document.getElementById('navLoading'); if(nl) nl.style.display='none';
+      }
+    }
+  }catch(e){}
+  // ── buscar dados frescos em segundo plano ──
+  try{
+    const r=await fetch(SHEETS_URL);
+    const dados=await r.json();
+    if(Array.isArray(dados)&&dados.length){
+      try{ localStorage.setItem(CACHE_KEY,JSON.stringify(dados)); }catch(e){}
+      acervo=dados.map(d=>({
         secao:(d.secao||'regular').toString().trim().toLowerCase(),
         tema:(d.tema||'').toString().trim(),
         titulo:d.titulo||'',
@@ -1076,14 +1090,13 @@ async function carregarDaPlanilha(){
         conteudo:textToHtml(d.conteudo||''),
         fonte:d.fonte||''
       }));
-      buildNav();
-      openText(0);
-      applyLidosToNav();
+      buildNav(); openText(0); applyLidosToNav();
       var nl=document.getElementById('navLoading'); if(nl) nl.style.display='none';
     }
   }catch(e){
     var nl=document.getElementById('navLoading');
-    if(nl){ nl.innerHTML='<p style="font-family:Raleway,sans-serif;font-size:10px;color:rgba(255,100,100,.7);letter-spacing:.1em;text-align:center;padding:20px 16px;line-height:1.6">Erro ao carregar.<br>Verifique a conexão e<br><button onclick="carregarDaPlanilha()" style="color:rgba(196,164,90,.8);background:none;border:none;cursor:pointer;font-family:Raleway,sans-serif;font-size:10px;letter-spacing:.1em;margin-top:8px;text-decoration:underline">tente novamente</button></p>'; }
+    if(acervo.length){ if(nl) nl.style.display='none'; return; }
+    if(nl){ nl.innerHTML='<p style="font-family:Raleway,sans-serif;font-size:10px;color:rgba(255,100,100,.7);letter-spacing:.1em;text-align:center;padding:20px 16px;line-height:1.6">Erro ao carregar.<br><button onclick="carregarDaPlanilha()" style="color:rgba(196,164,90,.8);background:none;border:none;cursor:pointer;font-family:Raleway,sans-serif;font-size:10px;letter-spacing:.1em;margin-top:8px;text-decoration:underline">tente novamente</button></p>'; }
     document.getElementById('article').innerHTML='<div class="empty"><div class="empty__title">Não foi possível carregar o acervo</div></div>';
   }
 }
