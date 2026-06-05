@@ -74,17 +74,17 @@
     background:none;border:none;cursor:pointer;
     font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;
     letter-spacing:.18em;text-transform:uppercase;
-    color:rgba(196,164,90,.7);transition:color .2s;
+    color:rgba(255,255,255,.7);transition:color .2s;
   }
-  .voltar-portal-btn:hover{color:var(--gold)}
+  .voltar-portal-btn:hover{color:#fff}
   .voltar-portal-btn svg{width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
   .sidebar__head{
     padding:38px 30px 24px;
     border-bottom:1px solid rgba(196,164,90,.14);
   }
   .sidebar__overline{
-    font-size:10px;letter-spacing:.32em;text-transform:uppercase;
-    color:var(--gold);font-weight:600;margin-bottom:10px;
+    font-size:13px;letter-spacing:.12em;text-transform:none;
+    color:rgba(255,255,255,.28);font-weight:400;margin-top:2px;
   }
   .sidebar__title{
     font-family:'Cormorant Garamond',serif;
@@ -455,7 +455,16 @@
     .sidebar.open{transform:translateX(0)}
     .scrim.show{display:block}
     .article{padding:14vh 8vw 16vh}
-    .nav-collapse{display:none}
+    .nav-collapse{
+    position:absolute;top:14px;right:12px;
+    width:28px;height:28px;border-radius:50%;
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;transition:all .2s;color:rgba(255,255,255,.45);
+    flex-shrink:0;
+  }
+  .nav-collapse:hover{background:rgba(255,255,255,.12);color:#fff}
+  .nav-collapse svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
   }
 
   /* ---------- RECOLHER MENU (desktop) ---------- */
@@ -470,15 +479,15 @@
   }
   .nav-collapse:hover{background:rgba(196,164,90,.2);border-color:var(--gold)}
   .nav-collapse svg{width:15px;height:15px;stroke:currentColor;stroke-width:1.8;fill:none}
-  .nav-show{
-    position:fixed;top:24px;left:24px;z-index:30;
-    width:46px;height:46px;border-radius:50%;
-    border:1px solid rgba(196,164,90,.4);
-    background:linear-gradient(180deg,var(--navy-mid),var(--navy-deep));
-    color:var(--gold);cursor:pointer;
-    align-items:center;justify-content:center;display:none;
-    box-shadow:0 10px 30px rgba(0,0,0,.45);transition:.25s;
+    .nav-show{
+    position:fixed;top:14px;left:14px;z-index:50;
+    width:34px;height:34px;border-radius:50%;
+    background:rgba(11,29,58,.85);border:1px solid rgba(196,164,90,.35);
+    display:none;align-items:center;justify-content:center;
+    cursor:pointer;transition:all .2s;color:rgba(196,164,90,.8);
+    backdrop-filter:blur(8px);
   }
+  .nav-show:hover{border-color:var(--gold);color:var(--gold)}
   .nav-show:hover{border-color:var(--gold);transform:translateY(-1px)}
   .nav-show svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.8;fill:none}
   @media(min-width:861px){
@@ -549,7 +558,6 @@
 </head>
 <body>
 
-<button class="menu-btn" id="menuBtn" aria-label="Abrir menu"><span></span></button>
 <button class="nav-show" id="navShow" aria-label="Mostrar menu" title="Mostrar menu">
   <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
 </button>
@@ -566,8 +574,7 @@
         <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
         Voltar ao Portal
       </button>
-      <div class="sidebar__overline">Instituto MD Talk</div>
-      <h1 class="sidebar__title">Acervo</h1>
+      <h1 class="sidebar__title">Acervo <em style="font-style:italic;color:var(--gold);-webkit-text-fill-color:var(--gold)">MD Talk</em></h1>
       <div class="sidebar__count" id="count">— textos</div>
     </div>
     <div class="filters" id="filters"></div>
@@ -1373,7 +1380,6 @@ scrollEl.addEventListener('mouseup',()=>{
 /* ---------- MOBILE MENU ---------- */
 function openMenu(){sidebar.classList.add('open');scrim.classList.add('show');}
 function closeMenu(){sidebar.classList.remove('open');scrim.classList.remove('show');}
-document.getElementById('menuBtn').addEventListener('click',openMenu);
 scrim.addEventListener('click',closeMenu);
 
 /* ---------- RECOLHER MENU (desktop) ---------- */
