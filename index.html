@@ -68,6 +68,21 @@
   .sidebar__head,.nav{position:relative;z-index:1}
 
 
+  .nav-loading{
+    position:absolute;inset:0;z-index:20;
+    background:linear-gradient(180deg,#03070E 0%,#050C18 50%,#08152B 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  }
+  .nav-loading-ring{
+    width:28px;height:28px;border-radius:50%;
+    border:1.5px solid rgba(196,164,90,.15);
+    border-top-color:rgba(196,164,90,.7);
+    animation:nc-spin 1s linear infinite;
+  }
+  .nav-loading p{
+    font-family:'Raleway',sans-serif;font-size:10px;font-weight:600;
+    letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);
+  }
   .voltar-portal-btn{
     display:flex;align-items:center;gap:8px;
     padding:8px 0;margin-bottom:20px;
@@ -580,6 +595,7 @@
       <span class="nc-orbit"></span>
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
     </button>
+    <div class="nav-loading" id="navLoading"><div class="nav-loading-ring"></div><p>Carregando</p></div>
     <div class="sidebar__head">
       <button class="voltar-portal-btn" onclick="voltarAoPortal()">
         <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
@@ -632,387 +648,7 @@ const SECOES = [
 
 /* Cada texto: cole o conteúdo no lugar indicado por <div class="article__placeholder">.
    O campo "fonte" aparece automaticamente no fim do texto. */
-let acervo = [
-
-  /* ===================== REGULAR ENGLISH ===================== */
-  {
-    secao:'regular',
-    tema:"Health & Medicine",
-    titulo:"Expiration Dates Are Meaningless",
-    overline:"The Atlantic · Health",
-    imagem:"https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>A look at why the dates printed on our food tell us far less than we assume — and how much of what we throw away is, in truth, still perfectly good to eat.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
-    `,
-    fonte:"Tayag, Yasmin. “Expiration Dates Are Meaningless.” The Atlantic, 30 Nov. 2022."
-  },
-  {
-    secao:'regular',
-    tema:"Society",
-    titulo:"Old Enough: Experts Are Torn",
-    overline:"Insider · Parenting",
-    imagem:"https://images.unsplash.com/photo-1480796927426-f609979314bd?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>A Japanese show sends toddlers on errands across busy cities — alone. Two parenting experts disagree on whether it celebrates independence or asks too much, too soon.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
-    `,
-    fonte:"Ridley, Jane. “A new Japanese show on Netflix sends toddlers into busy cities on their own…” Insider, 8 Apr. 2022."
-  },
-  {
-    secao:'regular',
-    tema:"Psychology & Mindset",
-    titulo:"The 7 Types of Rest Everyone Needs",
-    overline:"Stylist · Mental Health",
-    imagem:"https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>Why a full night of sleep can still leave you exhausted: a physician's case that the body needs seven distinct kinds of rest, not just one.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
-    `,
-    fonte:"“The 7 types of rest everyone needs – and how to get them.” Stylist (citing Dr Saundra Dalton-Smith)."
-  },
-  {
-    secao:'regular',
-    tema:"Psychology & Mindset",
-    titulo:"The Perks of Taking the High Road",
-    overline:"The Atlantic · How to Build a Life",
-    imagem:"https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>On disagreement as an act of generosity — and why offering your values as a gift, rather than wielding them as a weapon, is the only way to truly change a mind.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
-    `,
-    fonte:"Brooks, Arthur C. “A Gentler, Better Way to Change Minds.” The Atlantic, 7 Apr. 2022."
-  },
-  {
-    secao:'regular',
-    tema:"Trending Topics",
-    titulo:"Love in the Time of A.I. Companions",
-    overline:"The New Yorker · Brave New World Dept.",
-    imagem:"https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>The people forming real emotional bonds with A.I. companions — partners, confidants, even spouses — and what that reveals about loneliness, grief, and the human need to be heard.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (disponível no seu documento).</div>
-    `,
-    fonte:"Wiener, Anna. “Love in the Time of A.I. Companions.” The New Yorker, 9 Mar. 2026."
-  },
-  {
-    secao:'regular',
-    tema:"Science & Nature",
-    titulo:"Why Some People Thrive on Four Hours of Sleep",
-    overline:"The New Yorker · Annals of Inquiry",
-    imagem:"https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>Meet the rare “short sleepers” who flourish on four hours a night — and the genetics behind a trait that quietly grants them years of extra waking life.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (disponível no seu documento).</div>
-    `,
-    fonte:"Love, Shayla. “Why Some People Thrive on Four Hours of Sleep.” The New Yorker, 18 Feb. 2026."
-  },
-  {
-    secao:'regular',
-    tema:"Science & Nature",
-    titulo:"The Philosopher Who Believes in Living Things",
-    overline:"The New Yorker · Annals of Inquiry",
-    imagem:"https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>A philosopher argues that the objects around us — even a dead rat or a scrap of plastic — are not inert, but carry a strange vitality and a will of their own.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (disponível no seu documento).</div>
-    `,
-    fonte:"Meis, Morgan. “The Philosopher Who Believes in Living Things.” The New Yorker, 28 Feb. 2023."
-  },
-  {
-    secao:'regular',
-    tema:"Psychology & Mindset",
-    titulo:"Can Cognitive Behavioral Therapy Change Our Minds?",
-    overline:"The New Yorker · Annals of Inquiry",
-    imagem:"https://images.unsplash.com/photo-1474418397713-7ede21d49118?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>Can we really think our way out of how we feel? A look at the unlikely premise behind cognitive behavioral therapy — that we can be rational after all.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (disponível no seu documento).</div>
-    `,
-    fonte:"Rothman, Joshua. “Can Cognitive Behavioral Therapy Change Our Minds?” The New Yorker, 28 Feb. 2023."
-  },
-  {
-    secao:'regular',
-    tema:"History",
-    titulo:"Searching for a Fortress Built by People Who Escaped Slavery",
-    overline:"The New Yorker · Annals of Inquiry",
-    imagem:"https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>Somewhere in the swamps of Georgia lie the ruins of a fortress built by Maroons — people who escaped slavery to live free in the wilderness. A novelist and a team of scholars set out to find them.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (disponível no seu documento).</div>
-    `,
-    fonte:"Hutson, Matthew. “Searching for a Fortress Built by People Who Escaped Slavery.” The New Yorker, 21 Jul. 2023."
-  },
-  {
-    secao:'regular',
-    tema:"Health & Medicine",
-    titulo:"Why Dizziness Is Still a Mystery",
-    overline:"The New Yorker · Annals of Inquiry",
-    imagem:"https://images.unsplash.com/photo-1502139214982-d0ad755818d8?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>Balance disorders like vertigo can upend a life, yet they remain strangely invisible to the doctors who treat them. A journalist traces her own spinning world in search of answers.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (disponível no seu documento).</div>
-    `,
-    fonte:"Love, Shayla. “Why Dizziness Is Still a Mystery.” The New Yorker, 21 Jul. 2023."
-  },
-  {
-    secao:'regular',
-    tema:"Health & Medicine",
-    titulo:"Why Are We So Bad at Getting Better?",
-    overline:"The New Yorker · Annals of Inquiry",
-    imagem:"https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>Convalescence was once central to medicine; now we rush back to life at half strength. A doctor argues that we have forgotten the lost art of recovery — at our own cost.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (disponível no seu documento).</div>
-    `,
-    fonte:"Khullar, Dhruv. “Why Are We So Bad at Getting Better?” The New Yorker, 18 Oct. 2023."
-  },
-  {
-    secao:'regular',
-    tema:"Science & Nature",
-    titulo:"How Much of the World Is It Possible to Model?",
-    overline:"The New Yorker · Annals of Inquiry",
-    imagem:"https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>Mathematical models power our civilization — predicting weather, elections, pandemics, and markets. But every model leaves something out, and knowing what it neglects is everything.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (disponível no seu documento).</div>
-    `,
-    fonte:"Rockmore, Dan. “How Much of the World Is It Possible to Model?” The New Yorker, 15 Jan. 2024."
-  },
-  {
-    secao:'regular',
-    tema:"Business",
-    titulo:"An Economics Lesson from Tolstoy",
-    overline:"The New Yorker · Annals of Inquiry",
-    imagem:"https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>Through Tolstoy's parable of a man who grasps for ever more land, a case that economics was never a value-free science — that it is, inescapably, suffused with morality and politics.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (disponível no seu documento).</div>
-    `,
-    fonte:"Romeo, Nick. “An Economics Lesson from Tolstoy.” The New Yorker, 16 Jan. 2024."
-  },
-  {
-    secao:'regular',
-    tema:"Society",
-    titulo:"Why So Many People Are Going “No Contact” with Their Parents",
-    overline:"The New Yorker · Annals of Inquiry",
-    imagem:"https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>A growing movement wants to destigmatize cutting ties with family. Is it a long-overdue corrective for those in unhealthy relationships, or a worrisome shift in how we think about kinship?</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (disponível no seu documento).</div>
-    `,
-    fonte:"Russell, Anna. “Why So Many People Are Going ‘No Contact’ with Their Parents.” The New Yorker, 30 Aug. 2024."
-  },
-  {
-    secao:'regular',
-    tema:"Geek World",
-    titulo:"What Kind of Writer Is ChatGPT?",
-    overline:"The New Yorker · Annals of Inquiry",
-    imagem:"https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>Chatbots were branded the perfect plagiarism machine. Watching students actually write with one suggests something stranger — a new kind of collaboration that shares the cognitive load.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (disponível no seu documento).</div>
-    `,
-    fonte:"Newport, Cal. “What Kind of Writer Is ChatGPT?” The New Yorker, 3 Oct. 2024."
-  },
-  {
-    secao:'regular',
-    tema:"Science & Nature",
-    titulo:"Do Insects Feel Pain?",
-    overline:"The New Yorker · Annals of Inquiry",
-    imagem:"https://images.unsplash.com/photo-1568526381923-caf3fd520382?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>Insects make up some forty per cent of living species, and we kill them without a thought. New research raises an unsettling question: what if they are sentient?</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (disponível no seu documento).</div>
-    `,
-    fonte:"Love, Shayla. “Do Insects Feel Pain?” The New Yorker, 5 Jan. 2025."
-  },
-  {
-    secao:'regular',
-    tema:"Geek World",
-    titulo:"What’s the Deal with U.F.O.s?",
-    overline:"The New Yorker · Annals of Inquiry",
-    imagem:"https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>Have we ever been visited by aliens or their technology? A sober walk through what would actually count as evidence — and why the truth is so hard to pin down.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (disponível no seu documento).</div>
-    `,
-    fonte:"Hutson, Matthew. “What’s the Deal with U.F.O.s?” The New Yorker, 7 Sep. 2025."
-  },
-  {
-    secao:'regular',
-    tema:"Psychology & Mindset",
-    titulo:"Is Cognitive Dissonance Actually a Thing?",
-    overline:"The New Yorker · The Lede",
-    imagem:"https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>The foundational 1956 study behind one of psychology's most famous ideas — built around a doomsday cult awaiting aliens — has been all but undone by newly released archives.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (disponível no seu documento).</div>
-    `,
-    fonte:"Love, Shayla. “Is Cognitive Dissonance Actually a Thing?” The New Yorker, 17 Dec. 2025."
-  },
-  {
-    secao:'regular',
-    tema:"Science & Nature",
-    titulo:"Animals Say Hello, but Do They Say Goodbye?",
-    overline:"The New Yorker · Annals of Inquiry",
-    imagem:"https://images.unsplash.com/photo-1463852247062-1bbca38f7805?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>Greetings are everywhere in the animal kingdom — but farewells were long thought to be uniquely human. New research into baboons quietly challenges that assumption.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (disponível no seu documento).</div>
-    `,
-    fonte:"Love, Shayla. “Animals Say Hello, but Do They Say Goodbye?” The New Yorker, 4 Feb. 2026."
-  },
-  {
-    secao:'regular',
-    tema:"Science & Nature",
-    titulo:"Why Do We Like Music?",
-    overline:"The New Yorker · Annals of Inquiry",
-    imagem:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>People with musical anhedonia, a rare inability to take pleasure in music, are helping scientists understand what happens in the brain when a song moves the rest of us.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (disponível no seu documento).</div>
-    `,
-    fonte:"Love, Shayla. “Why Do We Like Music?” The New Yorker, 11 Feb. 2026."
-  },
-  {
-    secao:'regular',
-    tema:"Psychology & Mindset",
-    titulo:"When Do We Become Adults, Really?",
-    overline:"The New Yorker · Annals of Inquiry",
-    imagem:"https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>Biology, society, and the calendar all draw the line in different places. A look at why our tidy stages of life never quite capture what it actually feels like to grow up.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (disponível no seu documento).</div>
-    `,
-    fonte:"Love, Shayla. “When Do We Become Adults, Really?” The New Yorker, 25 Feb. 2026."
-  },
-  {
-    secao:'regular',
-    tema:"Health & Medicine",
-    titulo:"Can a “Living Drug” Cure Autoimmune Diseases?",
-    overline:"The New Yorker · Annals of Inquiry",
-    imagem:"https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>CAR-T therapy was built to fight cancer. Now it is showing startling promise against diseases long deemed incurable — reprogramming the immune system to heal itself.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (disponível no seu documento).</div>
-    `,
-    fonte:"Liebowitz, Jason. “Can a ‘Living Drug’ Cure Autoimmune Diseases?” The New Yorker, 6 Mar. 2026."
-  },
-  {
-    secao:'regular',
-    tema:"Health & Medicine",
-    titulo:"Why Do Mind-Altering Drugs Make People Feel Better?",
-    overline:"The New Yorker · Annals of Inquiry",
-    imagem:"https://images.unsplash.com/photo-1545987796-200677ee1011?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>Scientists are trying to redesign psychedelics so they heal the mind without inducing a trip — a grand experiment that asks whether the trip was ever the point.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (disponível no seu documento).</div>
-    `,
-    fonte:"Dalton, Clayton. “Why Do Mind-Altering Drugs Make People Feel Better?” The New Yorker, 6 Mar. 2026."
-  },
-
-  /* ===================== MEDICAL ENGLISH ===================== */
-  {
-    secao:'medical',
-    tema:"Health & Medicine",
-    titulo:"I Want to Kill You",
-    overline:"Journal of Clinical Oncology · Art of Oncology",
-    imagem:"https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>An oncologist's firsthand account of being threatened by a patient — and a hard look at how institutions fail to protect the clinicians who deliver bad news.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
-    `,
-    fonte:"LoConte, Noelle K. “I Want to Kill You.” Journal of Clinical Oncology, ASCO, 2023. DOI 10.1200/JCO.22.02896."
-  },
-  {
-    secao:'medical',
-    tema:"Health & Medicine",
-    titulo:"My White Coat Doesn't Fit",
-    overline:"Journal of Clinical Oncology · Art of Oncology",
-    imagem:"https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>A Latina physician's journey from erasing herself to fit in, to reclaiming her identity — and finding, at last, that her white coat could carry her own colors.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
-    `,
-    fonte:"Duma, Narjust. “My White Coat Doesn't Fit.” Journal of Clinical Oncology, ASCO, 2022. DOI 10.1200/JCO.21.02601."
-  },
-  {
-    secao:'medical',
-    tema:"Health & Medicine",
-    titulo:"Ten Traits of Great Physicians",
-    overline:"The American Journal of Medicine · Review",
-    imagem:"https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>The habits that separate a good doctor from a great one — told through vivid clinical stories, from playing detective to truly listening to the patient.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
-    `,
-    fonte:"Higgins, John P. “Ten Traits of Great Physicians.” The American Journal of Medicine, vol. 136, 2023, pp. 355–359."
-  },
-  {
-    secao:'medical',
-    tema:"Health & Medicine",
-    titulo:"The Road Less Traveled",
-    overline:"JCO Global Oncology · Art of Global Oncology",
-    imagem:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>A patient declines treatment that could extend his life, choosing instead to return home to family. An oncologist learns to honour a path she did not expect.</p>
-      <div class="article__placeholder">Este artigo é publicado sob licença Creative Commons BY 4.0 — você pode colar o texto completo aqui livremente, mantendo o crédito da fonte.</div>
-    `,
-    fonte:"Lim, Stephanie Hui-Su. “The Road Less Traveled: Perspective From an Australian Oncologist.” JCO Global Oncology, ASCO, 2024. DOI 10.1200/GO.23.00406 (CC BY 4.0)."
-  },
-  {
-    secao:'medical',
-    tema:"Health & Medicine",
-    titulo:"Afternoons in the Tower of Babel",
-    overline:"Journal of Clinical Oncology · Art of Oncology",
-    imagem:"https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>In a windowless room beside the ICU, an oncologist tries to translate the language of dying into words a grieving family can hold — and finds the body speaks too.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
-    `,
-    fonte:"Meisenberg, Barry R. “Afternoons in the Tower of Babel.” Journal of Clinical Oncology, vol. 41, no. 25, ASCO, 2023, pp. 4180–4181."
-  },
-  {
-    secao:'medical',
-    tema:"Health & Medicine",
-    titulo:"What Your Doctor Writes About You",
-    overline:"The Atlantic · Health",
-    imagem:"https://images.unsplash.com/photo-1583912267550-d6c2ac3196c0?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>You can now read every note your doctor writes about you. A look at the promise — and the quiet complications — of transparency in medicine.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
-    `,
-    fonte:"Qureshi, Zoya. “Do You Really Want to Read What Your Doctor Writes About You?” The Atlantic, 15 Nov. 2022."
-  },
-
-  /* ===================== BUSINESS ENGLISH ===================== */
-  {
-    secao:'business',
-    tema:"Business",
-    titulo:"The Rise of the 9 p.m. Work Hour",
-    overline:"The Atlantic · Ideas",
-    imagem:"https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>Remote work has split the day into islands of productivity — and pushed a new mountain of labour into the late evening. Why the meeting age created the worknight.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
-    `,
-    fonte:"Thompson, Derek. “This Is What Happens When There Are Too Many Meetings.” The Atlantic, 4 Apr. 2022."
-  },
-  {
-    secao:'business',
-    tema:"Business",
-    titulo:"Why Overthinkers Struggle With Remote Work",
-    overline:"BBC Worklife · How We Work",
-    imagem:"https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1920&q=80",
-    conteudo:`
-      <p>The same conscientiousness that makes overthinkers excellent colleagues can turn against them when remote work removes the small cues that once eased their doubts.</p>
-      <div class="article__placeholder">Cole aqui o texto completo do artigo (você já tem o PDF).</div>
-    `,
-    fonte:"Lufkin, Bryan. “Why overthinkers struggle with remote work.” BBC Worklife, 9 Aug. 2022."
-  }
-
-];
+let acervo = [];
 
 /* ---------- RENDER ---------- */
 const navEl   = document.getElementById('nav');
@@ -1443,14 +1079,19 @@ async function carregarDaPlanilha(){
       buildNav();
       openText(0);
       applyLidosToNav();
+      var nl=document.getElementById('navLoading'); if(nl) nl.style.display='none';
     }
-  }catch(e){ /* falhou: mantém o acervo de reserva */ }
+  }catch(e){
+    var nl=document.getElementById('navLoading');
+    if(nl){ nl.innerHTML='<p style="font-family:Raleway,sans-serif;font-size:10px;color:rgba(255,100,100,.7);letter-spacing:.1em;text-align:center;padding:20px 16px;line-height:1.6">Erro ao carregar.<br>Verifique a conexão e<br><button onclick="carregarDaPlanilha()" style="color:rgba(196,164,90,.8);background:none;border:none;cursor:pointer;font-family:Raleway,sans-serif;font-size:10px;letter-spacing:.1em;margin-top:8px;text-decoration:underline">tente novamente</button></p>'; }
+    document.getElementById('article').innerHTML='<div class="empty"><div class="empty__title">Não foi possível carregar o acervo</div></div>';
+  }
 }
 
 /* ---------- INIT ---------- */
 buildNav();
 articleEl.innerHTML='<div class="empty"><div class="empty__title" style="font-size:1rem;opacity:.5">Carregando acervo…</div></div>';
-if(acervo.length) openText(0);
+if(acervo.length){ openText(0); var nl=document.getElementById('navLoading'); if(nl) nl.style.display='none'; }
 carregarDaPlanilha();
 </script>
 </body>
