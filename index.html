@@ -965,6 +965,13 @@ async function runTranslate(){
     trBtn.disabled=false;trBtn.textContent='Traduzir';
   }
 }
+function driveImgUrl(url){
+  if(!url) return '';
+  // extrai FILE_ID de qualquer link do Drive e converte para URL direta
+  var m=url.match(/[\/d\/|id=]([a-zA-Z0-9_-]{25,})/);
+  if(m) return 'https://drive.google.com/uc?export=view&id='+m[1];
+  return url; // já é URL direta, usa como está
+}
 function voltarAoPortal(){
   if(window.parent!==window) window.parent.postMessage({type:'mdlibrary_back'},'*');
 }
@@ -1086,7 +1093,7 @@ async function carregarDaPlanilha(){
         tema:(d.tema||'').toString().trim(),
         titulo:d.titulo||'',
         overline:d.overline||'',
-        imagem:d.imagem||'',
+        imagem:driveImgUrl(d.imagem||''),
         conteudo:textToHtml(d.conteudo||''),
         fonte:d.fonte||''
       }));
